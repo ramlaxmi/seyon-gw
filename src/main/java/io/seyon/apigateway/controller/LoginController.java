@@ -1,5 +1,7 @@
 package io.seyon.apigateway.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ import io.seyon.apigateway.ApigatewayApplication;
 import io.seyon.apigateway.common.Constants;
 import io.seyon.apigateway.common.SeyonGwProperties;
 import io.seyon.apigateway.entity.User;
+import io.seyon.apigateway.entity.UserSession;
 import io.seyon.apigateway.exception.InvalidPasswordException;
 import io.seyon.apigateway.exception.UserInActiveException;
 import io.seyon.apigateway.exception.UserNotFoundException;
@@ -72,6 +75,34 @@ public class LoginController {
 		return mav;
 	}
 
+	@GetMapping("/logout")
+	public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+		Cookie[] cookies=request.getCookies();
+		String sessionId=null;
+		if(null==cookies) {
+			log.error("Cookie Not found");
+			response.sendRedirect("/login");
+			return ;	
+		}
+		for(Cookie cookie:cookies){
+			log.debug("verifying cookie :{}, path:{}",cookie.getName(),cookie.getPath());
+			if(Constants.X_AUTH_COOKIE.equalsIgnoreCase(cookie.getName())){
+				sessionId=cookie.getValue();
+				break;
+			}
+		}
+		if(StringUtils.isBlank(sessionId)){
+			log.error("Session id is null");
+			response.sendRedirect("/login");
+			return ;
+		}
+
+		log.info("Session id is {}",sessionId);
+		loginService.deleteSession(sessionId);
+		response.sendRedirect("/login");
+		return ;
+	}
 	/*
 	 * @GetMapping("/createUser") public String createUser( Model model) { User user
 	 * = new User(); user.setActive(true); user.setEmail("admin@seyon.com");

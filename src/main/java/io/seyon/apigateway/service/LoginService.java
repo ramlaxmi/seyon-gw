@@ -3,6 +3,8 @@ package io.seyon.apigateway.service;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -68,5 +70,12 @@ public class LoginService {
 		us.setExpiry(properties.getCookieMaxAgeInSeconds());
 		userSessRepo.save(us);
 		return uniqueId;
+	}
+
+	@Transactional
+	public void deleteSession(String sessionId) {
+		userSessRepo.deleteBySessionId(sessionId);
+		return;
+		
 	}
 }
