@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
@@ -23,6 +24,7 @@ import io.seyon.apigateway.filters.RoutingFilter;
 @SpringBootApplication
 @EnableZuulProxy
 @EnableConfigurationProperties
+@EnableCaching
 public class ApigatewayApplication {
 
 	private static Logger log = LoggerFactory.getLogger(ApigatewayApplication.class);

@@ -29,7 +29,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter  {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)	throws Exception {
 		log.info("Url Access {}",request.getRequestURI());
 		
-		request.getSession().setAttribute("redirectUri", request.getRequestURI());
+		request.getSession().setAttribute(Constants.REDIRECT_URI, request.getRequestURI());
 		
 		Cookie[] cookies=request.getCookies();
 		String sessionId=null;
@@ -59,6 +59,8 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter  {
 			return false;	
 		}
 		log.info("User Session details is {}",us);
+		request.setAttribute(Constants.USER_SESSION, us.getSessionId());
+		request.setAttribute(Constants.USER_EMAIL, us.getEmail());
 		return true;
 	}
 }
