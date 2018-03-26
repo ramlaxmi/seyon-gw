@@ -1,5 +1,7 @@
 package io.seyon.apigateway.interceptor;
 
+import java.util.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,9 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)	throws Exception {
 		log.info("Url Access {}",request.getRequestURI());
+		
+		request.getSession().setAttribute("redirectUri", request.getRequestURI());
+		
 		Cookie[] cookies=request.getCookies();
 		String sessionId=null;
 		if(null==cookies) {
@@ -48,6 +53,11 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter  {
 
 		log.info("Session id is {}",sessionId);
 		UserSession us=userSessRepo.findBySessionId(sessionId);
+		if(null==us || us.getExpiryTime().before(new Date())) {
+			log.error("Session Expired");
+			response.sendRedirect("/login");
+			return false;	
+		}
 		log.info("User Session details is {}",us);
 		return true;
 	}

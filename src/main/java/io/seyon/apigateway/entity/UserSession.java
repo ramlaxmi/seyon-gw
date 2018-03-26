@@ -22,6 +22,9 @@ public class UserSession {
 	
 	@Column
 	private Integer expiry;
+	
+	@Column
+	private Date expiryTime;
 
 	public String getSessionId() {
 		return sessionId;
@@ -67,6 +70,14 @@ public class UserSession {
 	public String toString() {
 		return "UserSession [sessionId=" + sessionId + ", email=" + email + ", machineIp=" + machineIp
 				+ ", createdTime=" + createdTime + ", expiry=" + expiry + "]";
+	}
+
+	public Date getExpiryTime() {
+		return expiryTime;
+	}
+
+	public void setExpiryTime(Date expiryTime) {
+		this.expiryTime = expiryTime;
 	}
 	
 	

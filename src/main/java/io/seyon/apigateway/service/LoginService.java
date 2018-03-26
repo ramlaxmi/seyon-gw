@@ -1,5 +1,6 @@
 package io.seyon.apigateway.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -68,6 +69,10 @@ public class LoginService {
 		us.setMachineIp(ip);
 		us.setSessionId(uniqueId);
 		us.setExpiry(properties.getCookieMaxAgeInSeconds());
+		Calendar cal= Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.SECOND,properties.getCookieMaxAgeInSeconds());
+		us.setExpiryTime(cal.getTime());
 		userSessRepo.save(us);
 		return uniqueId;
 	}

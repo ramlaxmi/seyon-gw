@@ -24,6 +24,10 @@
                         	<span th:text="${exception}"></span>
                         </div>
                         <form id="login-form" th:action="@{/login}" th:object="${user}" action="" method="POST" novalidate="">
+                        
+                        	<input type="hidden" th:field="*{redirectUri}"/>
+                        	<input type="hidden" th:field="*{ltToken}"/>
+                        	
                             <div class="form-group">
                                 <label for="username">Email </label>
                                 <input type="email" class="form-control underlined" th:field="*{email}"  id="email" placeholder="Your email address" required> 

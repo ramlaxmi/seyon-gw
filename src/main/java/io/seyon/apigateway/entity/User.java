@@ -3,6 +3,7 @@ package io.seyon.apigateway.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class User {
@@ -22,6 +23,12 @@ public class User {
 	
 	@Column
 	Integer companyId;
+	
+	@Transient
+	String redirectUri;
+	
+	@Transient
+	String ltToken;
 	
 	public String getEmail() {
 		return email;
@@ -67,6 +74,22 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", name=" + name + ", active=" + active + ", companyId=" + companyId + "]";
+	}
+
+	public String getRedirectUri() {
+		return redirectUri;
+	}
+
+	public void setRedirectUri(String redirectUri) {
+		this.redirectUri = redirectUri;
+	}
+
+	public String getLtToken() {
+		return ltToken;
+	}
+
+	public void setLtToken(String ltToken) {
+		this.ltToken = ltToken;
 	}
 
 	
