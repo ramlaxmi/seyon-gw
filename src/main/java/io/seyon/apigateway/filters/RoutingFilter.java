@@ -17,9 +17,9 @@ public class RoutingFilter extends ZuulFilter{
 	public Object run() throws ZuulException {
 		RequestContext ctx = RequestContext.getCurrentContext();
 	    HttpServletRequest request = ctx.getRequest();
-
+	    ctx.addZuulRequestHeader("USER-ID",null);
+	    
 	    log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
-
 	    return null;
 	}
 
