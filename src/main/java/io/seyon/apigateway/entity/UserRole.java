@@ -13,8 +13,6 @@ public class UserRole {
 	@Column
 	private String email;
 	
-
-
 	@Column
 	private String roleCode;
 

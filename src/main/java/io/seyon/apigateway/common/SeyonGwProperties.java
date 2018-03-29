@@ -2,6 +2,7 @@ package io.seyon.apigateway.common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -11,10 +12,11 @@ import org.springframework.stereotype.Component;
 public class SeyonGwProperties {
 
 	List<String> authExcludeUrl= new ArrayList<>();
-	
 	String loginSuccessUrl;
 	Integer cookieMaxAgeInSeconds;
-
+	Map<String, String> restUrlMap;
+	String restUrlDomain;
+	
 	public String getLoginSuccessUrl() {
 		return loginSuccessUrl;
 	}
@@ -37,6 +39,22 @@ public class SeyonGwProperties {
 
 	public void setCookieMaxAgeInSeconds(Integer cookieMaxAgeInSeconds) {
 		this.cookieMaxAgeInSeconds = cookieMaxAgeInSeconds;
+	}
+
+	public Map<String, String> getRestUrlMap() {
+		return restUrlMap;
+	}
+
+	public void setRestUrlMap(Map<String, String> restUrlMap) {
+		this.restUrlMap = restUrlMap;
+	}
+
+	public String getRestUrlDomain() {
+		return restUrlDomain;
+	}
+
+	public void setRestUrlDomain(String restUrlDomain) {
+		this.restUrlDomain = restUrlDomain;
 	}
 	
 }

@@ -11,12 +11,16 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.seyon.apigateway.common.SeyonGwProperties;
 import io.seyon.apigateway.filters.RoutingFilter;
@@ -44,6 +48,16 @@ public class ApigatewayApplication {
 		return new BCryptPasswordEncoder();
 	}
 
+	
+	@Bean
+	public RestTemplate restTemplate() {
+		RestTemplate restTemplate = new RestTemplate();
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setObjectMapper(new ObjectMapper());
+		restTemplate.getMessageConverters().add(converter);
+		return restTemplate;
+	}
+	
 	@AutoConfigurationPackage
 	protected static class AuthServer implements WebMvcConfigurer {
 
