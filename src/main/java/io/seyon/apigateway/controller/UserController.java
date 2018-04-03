@@ -61,25 +61,31 @@ public class UserController {
 	
 	
 	@GetMapping("/signup")
-	public String signUp(@ModelAttribute CompanyModel company, Model model, HttpServletRequest request) {
+	public String signUp(@ModelAttribute CompanyModel companyModel, Model model, HttpServletRequest request) {
 		
 		String token = TokenGenerator.generateToken("LT");
 		request.getSession().setAttribute("LT", token);
-		company.setLtToken(token);
+		companyModel.setLtToken(token);
 		return "signUp";
 	}
 	
 	@PostMapping("/signup")
-	public String signUpCompany(@ModelAttribute CompanyModel company, Model model, HttpServletRequest request) {
+	public String signUpCompany(@ModelAttribute("companyModel") CompanyModel companyModel, Model model, HttpServletRequest request) {
 		
 		String lttoken= (String) request.getSession().getAttribute("LT");
-		if(!lttoken.equals(company.getLtToken())) {
+		if(!lttoken.equals(companyModel.getLtToken())) {
 			model.addAttribute("error", true);
 			model.addAttribute("exception", "Invalid Session token");
 			return "signUp";
 		}
-		log.info("Creating Company {}",company);
-		userService.createCompany(company);
-		return "signUp";
+		log.info("Creating Company {}",companyModel);
+		try{
+			userService.createCompany(companyModel);
+		}catch(Exception e) {
+			model.addAttribute("error", true);
+			model.addAttribute("exception", "Some thing went wrong please contact administrator");
+			return "signUp";
+		}
+		return "successSignUp";
 	}
 }

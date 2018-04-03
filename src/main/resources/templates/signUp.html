@@ -3,13 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Seyon :: Login</title>
+<title>Seyon :: New Company SignUp</title>
 <meta name="description" content="Finace App with GST">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <!-- Place favicon.ico in the root directory -->
 <link rel="stylesheet" href="/css/vendor.css">
 <link rel="stylesheet" id="theme-style" href="/css/app-seagreen.css">
+<style>
+.stepwizard-step p {
+	margin-top: 0px;
+	color: #666;
+}
+
+.stepwizard-row {
+	display: table-row;
+}
+
+.stepwizard {
+	display: table;
+	width: 100%;
+	position: relative;
+}
+
+.stepwizard-step button[disabled] {
+	/*opacity: 1 !important;
+    filter: alpha(opacity=100) !important;*/
+	
+}
+
+.stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn
+	{
+	opacity: 1 !important;
+	color: #bbb;
+}
+
+.stepwizard-row:before {
+	top: 14px;
+	bottom: 0;
+	position: absolute;
+	content: " ";
+	width: 100%;
+	height: 1px;
+	background-color: #ccc;
+	z-index: 0;
+}
+
+.stepwizard-step {
+	display: table-cell;
+	text-align: center;
+	position: relative;
+}
+
+.btn-circle {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.428571429;
+	border-radius: 15px;
+}
+</style>
 </head>
 <body>
 	<div class="auth">
@@ -19,87 +74,169 @@
 					<h1 class="auth-title">Seyon</h1>
 				</header>
 				<div class="auth-content">
-					<p class="text-center">Register a Company</p>
-					<form id="signup-form" action="/signup" method="POST">
-
-						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-							<li class="nav-item"><a class="nav-link active"
-								id="pills-home-tab" data-toggle="pill" href="#pills-company"
-								role="tab" aria-controls="pills-home" aria-selected="true">Company
-									Details</a></li>
-							<li class="nav-item"><a class="nav-link"
-								id="pills-profile-tab" data-toggle="pill" href="#pills-user"
-								role="tab" aria-controls="pills-profile" aria-selected="false">User
-									Details </a></li>
-							<li class="nav-item"><a class="nav-link"
-								id="pills-contact-tab" data-toggle="pill" href="#pills-review"
-								role="tab" aria-controls="pills-contact" aria-selected="false">Review</a>
-							</li>
-						</ul>
-						<div class="tab-content" id="pills-tabContent">
-							<div class="tab-pane fade show active" id="pills-company"
-								role="tabpanel" aria-labelledby="pills-home-tab">
-								<div class="form-group">
-									<label for="firstname">Name</label>
-									<div class="row">
-										<div class="col-sm-6">
-											<input type="text" class="form-control underlined"
-												name="firstname" id="firstname"
-												placeholder="Enter firstname" required="">
-										</div>
-										<div class="col-sm-6">
-											<input type="text" class="form-control underlined"
-												name="lastname" id="lastname" placeholder="Enter lastname"
-												required="">
-										</div>
+					<div th:if="${error}" class="alert alert-danger">
+                        	<span th:text="${exception}"></span>
+                        </div>
+					<div class="stepwizard">
+						<div class="stepwizard-row setup-panel">
+							<div class="stepwizard-step col-xs-4">
+								<a href="#step-1" type="button"
+									class="btn btn-success btn-circle">1</a>
+								<p>
+									<small>Company</small>
+								</p>
+							</div>
+							<div class="stepwizard-step col-xs-4">
+								<a href="#step-2" type="button"
+									class="btn btn-default btn-circle" disabled="disabled">2</a>
+								<p>
+									<small>User</small>
+								</p>
+							</div>
+							<div class="stepwizard-step col-xs-4">
+								<a href="#step-3" type="button"
+									class="btn btn-default btn-circle" disabled="disabled">3</a>
+								<p>
+									<small>Success</small>
+								</p>
+							</div>
+						</div>
+					</div>
+					<form id="signup-form" th:action="@{/signup}" th:object="${companyModel}" method="POST">
+					<input type="hidden" th:field="*{ltToken}"/>
+						<div class="setup-content" id="step-1">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-8">
+									<label for="firstname">Company Name</label>
+										<input type="text" class="form-control underlined"
+											name="companyName" id="companyName" placeholder="Enter Company Name"
+											required="true"  th:field="*{company.companyName}" >
 									</div>
-								</div>
-								<div class="form-group">
-									<label for="email">Email</label> <input type="email"
-										class="form-control underlined" name="email" id="email"
-										placeholder="Enter email address" required="">
-								</div>
-								<div class="form-group">
-									<label for="password">Password</label>
-									<div class="row">
-										<div class="col-sm-6">
-											<input type="password" class="form-control underlined"
-												name="password" id="password" placeholder="Enter password"
-												required="">
-										</div>
-										<div class="col-sm-6">
-											<input type="password" class="form-control underlined"
-												name="retype_password" id="retype_password"
-												placeholder="Re-type password" required="">
-										</div>
+									<div class="col-sm-4">
+									<label for="firstname">Logo</label>
+										<input type="text" class="form-control underlined"
+											name="logo" id="logo" placeholder="Select path for logo"
+											required="true" th:field="*{company.logo}">
 									</div>
 								</div>
 							</div>
-							<div class="tab-pane fade" id="pills-user" role="tabpanel"
-								aria-labelledby="pills-profile-tab">User</div>
-							<div class="tab-pane fade" id="pills-review" role="tabpanel"
-								aria-labelledby="pills-contact-tab">Review</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6">
+									<label for="firstname">Address Line 1</label>
+										<input type="text" class="form-control underlined"
+											name="addressLine1" id="addressLine1" placeholder="Enter Address Line1"
+											required="true" th:field="*{company.addressLine1}">
+									</div>
+									<div class="col-sm-6">
+									<label for="firstname">Address Line 2</label>
+										<input type="text" class="form-control underlined"
+											name="addressLine2" id="addressLine2" placeholder="Enter Address Line2"
+											required="true" th:field="*{company.addressLine2}">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								
+								<div class="row">
+									<div class="col-sm-4">
+									<label for="firstname">City</label>
+										<input type="text" class="form-control underlined"
+											name="city" id="city" placeholder="Enter City"
+											required="true" th:field="*{company.city}">
+									</div>
+									<div class="col-sm-4">
+									<label for="firstname">State</label>
+										<input type="text" class="form-control underlined"
+											name="state" id="state" placeholder="Enter State"
+											required="true" th:field="*{company.state}">
+									</div>
+									<div class="col-sm-4">
+									<label for="firstname">Pincode</label>
+										<input type="text" class="form-control underlined"
+											name="pinCode" id="pinCode" placeholder="Enter Pincode"
+											required="true" th:field="*{company.pinCode}">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								
+								<div class="row">
+									<div class="col-sm-4">
+									<label for="firstname">Tan Number</label>
+										<input type="text" class="form-control underlined"
+											name="tanNo" id="tanNo" placeholder="Enter Tan Number"
+											required="true" th:field="*{company.tanNo}">
+									</div>
+									<div class="col-sm-4">
+									<label for="firstname">GST Number</label>
+										<input type="text" class="form-control underlined"
+											name="gstNo" id="gstNo" placeholder="Enter GST Number"
+											required="true" th:field="*{company.gstNo}">
+									</div>
+									<div class="col-sm-4">
+									<label for="firstname">PAN Number</label>
+										<input type="text" class="form-control underlined"
+											name="panNo" id="panNo" placeholder="Enter PAN number"
+											required="true" th:field="*{company.panNo}">
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+						</div>
+						<div class="setup-content" id="step-2">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6">
+									<label for="email">Name</label>
+										<input type="text" class="form-control underlined"
+											name="name" id="name" placeholder="Enter name"
+											required="true" th:field="*{userInfo.name}">
+									</div>
+									<div class="col-sm-6">
+										<label for="email">Email</label> 
+										<input type="email"
+									class="form-control underlined" name="email" id="email"
+									placeholder="Enter email address" required="true" th:field="*{userInfo.email}">
+									<small>This will be your user name</small>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="password">Password<span class="fa fa-eye" onclick="showPwd()"></span></label>
+								<div class="row">
+									<div class="col-sm-6">
+										<input type="password" class="form-control underlined"
+											name="password" id="password" placeholder="Enter password"
+											required="true" th:field="*{userInfo.password}">
+									</div>
+									<div class="col-sm-6">
+										<input type="password" class="form-control underlined"
+											name="retype_password" id="retype_password"
+											placeholder="Re-type password" required="true">
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
 						</div>
 
-
-
-						<div class="form-group">
-							<label for="agree"> <input class="checkbox" name="agree"
-								id="agree" type="checkbox" required=""> <span>Agree
-									the terms and <a href="#">policy</a>
-							</span>
-							</label>
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-block btn-primary">Sign
-								Up</button>
-						</div>
-						<div class="form-group">
-							<p class="text-muted text-center">
-								Already have an account? <a href="login.html">Login!</a>
-							</p>
+						<div class="setup-content" id="step-3">
+							<button class="btn btn-success pull-right" type="submit">Finish!</button>
 						</div>
 					</form>
+					<div class="form-group">
+						<label for="agree"> <input class="checkbox" name="agree"
+							id="agree" type="checkbox" required=""> 
+							<span>Agree	the terms and <a href="/unsecure/policy.html" target="_blank">policy</a>
+						</span>
+						</label>
+					</div>
+					<div class="form-group">
+						<p class="text-muted text-center">
+							Already have an account? <a href="login.html">Login!</a>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -109,12 +246,73 @@
 	<script>
 		function showPwd() {
 			var x = document.getElementById("password");
+			var y = document.getElementById("retype_password");
 			if (x.type === "password") {
 				x.type = "text";
 			} else {
 				x.type = "password";
 			}
+			if (y.type === "password") {
+				y.type = "text";
+			} else {
+				y.type = "password";
+			}
 		}
+
+		$(document)
+				.ready(
+						function() {
+
+							var navListItems = $('div.setup-panel div a'), allWells = $('.setup-content'), allNextBtn = $('.nextBtn');
+
+							allWells.hide();
+
+							navListItems
+									.click(function(e) {
+										e.preventDefault();
+										var $target = $($(this).attr('href')), $item = $(this);
+
+										if (!$item.hasClass('disabled')) {
+											navListItems.removeClass(
+													'btn-success').addClass(
+													'btn-default');
+											$item.addClass('btn-success');
+											allWells.hide();
+											$target.show();
+											$target.find('input:eq(0)').focus();
+										}
+									});
+
+							allNextBtn
+									.click(function() {
+										var curStep = $(this).closest(
+												".setup-content"), curStepBtn = curStep
+												.attr("id"), nextStepWizard = $(
+												'div.setup-panel div a[href="#'
+														+ curStepBtn + '"]')
+												.parent().next().children("a"), curInputs = curStep
+												.find("input[type='text'],input[type='url']"), isValid = true;
+
+										$(".form-group").removeClass(
+												"has-error");
+										for (var i = 0; i < curInputs.length; i++) {
+											if (!curInputs[i].validity.valid) {
+												isValid = false;
+												$(curInputs[i]).closest(
+														".form-group")
+														.addClass("has-error");
+											}
+										}
+
+										if (isValid)
+											nextStepWizard.removeAttr(
+													'disabled')
+													.trigger('click');
+									});
+
+							$('div.setup-panel div a.btn-success').trigger(
+									'click');
+						});
 	</script>
 </body>
 </html>

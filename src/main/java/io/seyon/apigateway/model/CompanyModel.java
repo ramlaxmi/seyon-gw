@@ -4,9 +4,9 @@ package io.seyon.apigateway.model;
 
 public class CompanyModel {
 	
-	private User userInfo;
+	private User userInfo= new User();
 	
-	private Company company;
+	private Company company=new Company();
 
 	private String ltToken;
 	
