@@ -75,8 +75,8 @@
 				</header>
 				<div class="auth-content">
 					<div th:if="${error}" class="alert alert-danger">
-                        	<span th:text="${exception}"></span>
-                        </div>
+						<span th:text="${exception}"></span>
+					</div>
 					<div class="stepwizard">
 						<div class="stepwizard-row setup-panel">
 							<div class="stepwizard-step col-xs-4">
@@ -90,131 +90,108 @@
 								<a href="#step-2" type="button"
 									class="btn btn-default btn-circle" disabled="disabled">2</a>
 								<p>
-									<small>User</small>
+									<small>Owner</small>
 								</p>
 							</div>
 							<div class="stepwizard-step col-xs-4">
 								<a href="#step-3" type="button"
 									class="btn btn-default btn-circle" disabled="disabled">3</a>
 								<p>
-									<small>Success</small>
+									<small>Other Detail</small>
 								</p>
 							</div>
 						</div>
 					</div>
-					<form id="signup-form" th:action="@{/signup}" th:object="${companyModel}" method="POST">
-					<input type="hidden" th:field="*{ltToken}"/>
+					<form id="signup-form" th:action="@{/signup}"
+						th:object="${companyModel}" method="POST">
+						<input type="hidden" th:field="*{ltToken}" />
 						<div class="setup-content" id="step-1">
 							<div class="form-group">
 								<div class="row">
-									<div class="col-sm-8">
-									<label for="firstname">Company Name</label>
-										<input type="text" class="form-control underlined"
-											name="companyName" id="companyName" placeholder="Enter Company Name"
-											required="true"  th:field="*{company.companyName}" >
+									<div class="col-sm-12">
+										<label for="firstname">Company Name</label> <input type="text"
+											class="form-control underlined" name="companyName"
+											id="companyName" placeholder="Enter Company Name"
+											required="true" th:field="*{company.companyName}">
 									</div>
-									<div class="col-sm-4">
-									<label for="firstname">Logo</label>
-										<input type="text" class="form-control underlined"
-											name="logo" id="logo" placeholder="Select path for logo"
-											required="true" th:field="*{company.logo}">
-									</div>
+
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-6">
-									<label for="firstname">Address Line 1</label>
-										<input type="text" class="form-control underlined"
-											name="addressLine1" id="addressLine1" placeholder="Enter Address Line1"
-											required="true" th:field="*{company.addressLine1}">
+										<label for="firstname">Address Line 1</label> <input
+											type="text" class="form-control underlined"
+											name="addressLine1" id="addressLine1"
+											placeholder="Enter Address Line1" required="true"
+											th:field="*{company.addressLine1}">
 									</div>
 									<div class="col-sm-6">
-									<label for="firstname">Address Line 2</label>
-										<input type="text" class="form-control underlined"
-											name="addressLine2" id="addressLine2" placeholder="Enter Address Line2"
-											required="true" th:field="*{company.addressLine2}">
+										<label for="firstname">Address Line 2</label> <input
+											type="text" class="form-control underlined"
+											name="addressLine2" id="addressLine2"
+											placeholder="Enter Address Line2" required="false"
+											th:field="*{company.addressLine2}">
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								
+
 								<div class="row">
 									<div class="col-sm-4">
-									<label for="firstname">City</label>
-										<input type="text" class="form-control underlined"
-											name="city" id="city" placeholder="Enter City"
-											required="true" th:field="*{company.city}">
+										<label for="firstname">City</label> <input type="text"
+											class="form-control underlined" name="city" id="city"
+											placeholder="Enter City" required="true"
+											th:field="*{company.city}" />
 									</div>
 									<div class="col-sm-4">
-									<label for="firstname">State</label>
-										<input type="text" class="form-control underlined"
-											name="state" id="state" placeholder="Enter State"
-											required="true" th:field="*{company.state}">
+										<label for="firstname">State</label> <input type="text"
+											class="form-control underlined" name="state" id="state"
+											placeholder="Enter State" required="true"
+											th:field="*{company.state}" />
 									</div>
 									<div class="col-sm-4">
-									<label for="firstname">Pincode</label>
-										<input type="text" class="form-control underlined"
-											name="pinCode" id="pinCode" placeholder="Enter Pincode"
-											required="true" th:field="*{company.pinCode}">
+										<label for="firstname">Pincode</label> <input type="text"
+											class="form-control underlined" name="pinCode" id="pinCode"
+											placeholder="Enter Pincode" required="true"
+											th:field="*{company.pinCode}" />
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								
-								<div class="row">
-									<div class="col-sm-4">
-									<label for="firstname">Tan Number</label>
-										<input type="text" class="form-control underlined"
-											name="tanNo" id="tanNo" placeholder="Enter Tan Number"
-											required="true" th:field="*{company.tanNo}">
-									</div>
-									<div class="col-sm-4">
-									<label for="firstname">GST Number</label>
-										<input type="text" class="form-control underlined"
-											name="gstNo" id="gstNo" placeholder="Enter GST Number"
-											required="true" th:field="*{company.gstNo}">
-									</div>
-									<div class="col-sm-4">
-									<label for="firstname">PAN Number</label>
-										<input type="text" class="form-control underlined"
-											name="panNo" id="panNo" placeholder="Enter PAN number"
-											required="true" th:field="*{company.panNo}">
-									</div>
-								</div>
-							</div>
+
 							<button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
 						</div>
 						<div class="setup-content" id="step-2">
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-6">
-									<label for="email">Name</label>
-										<input type="text" class="form-control underlined"
-											name="name" id="name" placeholder="Enter name"
-											required="true" th:field="*{userInfo.name}">
+										<label for="email">Name</label> <input type="text"
+											class="form-control underlined" name="name" id="name"
+											placeholder="Enter name" required="true"
+											th:field="*{userInfo.name}" />
 									</div>
 									<div class="col-sm-6">
-										<label for="email">Email</label> 
-										<input type="email"
-									class="form-control underlined" name="email" id="email"
-									placeholder="Enter email address" required="true" th:field="*{userInfo.email}">
-									<small>This will be your user name</small>
+										<label for="email">Email</label> <input type="email"
+											class="form-control underlined" name="email" id="email"
+											placeholder="Enter email address" required="true"
+											th:field="*{userInfo.email}" /> <small>This will be
+											your user name</small>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="password">Password<span class="fa fa-eye" onclick="showPwd()"></span></label>
+								<label for="password">Password<span class="fa fa-eye"
+									onclick="showPwd()"></span></label>
 								<div class="row">
 									<div class="col-sm-6">
 										<input type="password" class="form-control underlined"
 											name="password" id="password" placeholder="Enter password"
-											required="true" th:field="*{userInfo.password}">
+											required="true" th:field="*{userInfo.password}" />
 									</div>
 									<div class="col-sm-6">
 										<input type="password" class="form-control underlined"
 											name="retype_password" id="retype_password"
-											placeholder="Re-type password" required="true">
+											placeholder="Re-type password" required="true" />
 									</div>
 								</div>
 							</div>
@@ -222,16 +199,54 @@
 						</div>
 
 						<div class="setup-content" id="step-3">
+
+							<div class="form-group">
+
+								<div class="row">
+									<div class="col-sm-4">
+										<label for="firstname">Tan Number</label> <input type="text"
+											class="form-control underlined" name="tanNo" id="tanNo"
+											placeholder="Enter Tan Number" required="true"
+											th:field="*{company.tanNo}" />
+									</div>
+									<div class="col-sm-4">
+										<label for="firstname">GST Number</label> <input type="text"
+											class="form-control underlined" name="gstNo" id="gstNo"
+											placeholder="Enter GST Number" required="true"
+											th:field="*{company.gstNo}" />
+									</div>
+									<div class="col-sm-4">
+										<label for="firstname">PAN Number</label> <input type="text"
+											class="form-control underlined" name="panNo" id="panNo"
+											placeholder="Enter PAN number" required="true"
+											th:field="*{company.panNo}" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6">
+										<label for="firstname">Logo</label> <input type="file"
+											id="file-logo" /> <input type="hidden" name="logo" id="logo"
+											placeholder="Select path for logo" required="true"
+											th:field="*{company.logo}" />
+									</div>
+									<div class="col-sm-6">
+										<img height="100" id="img-logo" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="agree"> <input class="checkbox" name="agree"
+									id="agree" type="checkbox" required="true"> <span>Agree
+										the terms and <a href="/unsecure/policy.html" target="_blank">policy</a>
+								</span>
+								</label>
+							</div>
 							<button class="btn btn-success pull-right" type="submit">Finish!</button>
 						</div>
 					</form>
-					<div class="form-group">
-						<label for="agree"> <input class="checkbox" name="agree"
-							id="agree" type="checkbox" required=""> 
-							<span>Agree	the terms and <a href="/unsecure/policy.html" target="_blank">policy</a>
-						</span>
-						</label>
-					</div>
+
 					<div class="form-group">
 						<p class="text-muted text-center">
 							Already have an account? <a href="login.html">Login!</a>
@@ -312,6 +327,22 @@
 
 							$('div.setup-panel div a.btn-success').trigger(
 									'click');
+
+							$('#file-logo').change(function(evt) {
+								var img = $('#img-logo');
+								var logoInp = $('#logo');
+								var file = evt.target.files;
+								if (file.length > 0) {
+									var reader = new FileReader();
+									reader.readAsDataURL(file[0]);
+									reader.onload = function() {
+										var image = reader.result;
+										img.attr('src', image);
+										logoInp.val(image);
+									}
+								}
+							});
+
 						});
 	</script>
 </body>
