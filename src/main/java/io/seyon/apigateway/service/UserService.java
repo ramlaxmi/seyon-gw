@@ -35,6 +35,9 @@ public class UserService {
 	
 	
 	public Success createCompany(CompanyModel company) {
+		
+		company.getCompany().setOwnerName(company.getUserInfo().getName());
+		company.getCompany().setPrimaryEmail(company.getUserInfo().getEmail());
 		String createCompanyUrl=gwProperties.getRestUrlDomain()+gwProperties.getRestUrlMap().get("createCompany");
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON); 

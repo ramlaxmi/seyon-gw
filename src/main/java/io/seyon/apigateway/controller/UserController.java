@@ -80,7 +80,13 @@ public class UserController {
 		}
 		log.info("Creating Company {}",companyModel);
 		try{
-			userService.createCompany(companyModel);
+			Success success=userService.createCompany(companyModel);
+			if(success.getCode()!=0) {
+				model.addAttribute("error", true);
+				model.addAttribute("exception", success.getMessage());
+				return "signUp";
+			}
+				
 		}catch(Exception e) {
 			model.addAttribute("error", true);
 			model.addAttribute("exception", "Some thing went wrong please contact administrator");
