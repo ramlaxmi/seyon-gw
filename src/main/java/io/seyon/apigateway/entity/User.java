@@ -22,7 +22,7 @@ public class User {
 	Boolean active;
 	
 	@Column
-	Integer companyId;
+	Long companyId;
 	
 	@Transient
 	String redirectUri;
@@ -62,18 +62,12 @@ public class User {
 		this.active = active;
 	}
 
-	public Integer getCompanyId() {
+	public Long getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(Integer companyId) {
+	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User [email=" + email + ", name=" + name + ", active=" + active + ", companyId=" + companyId + "]";
 	}
 
 	public String getRedirectUri() {
@@ -92,5 +86,8 @@ public class User {
 		this.ltToken = ltToken;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", name=" + name + ", active=" + active + ", companyId=" + companyId + "]";
+	}
 }

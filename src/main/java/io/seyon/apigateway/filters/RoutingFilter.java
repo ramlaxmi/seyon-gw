@@ -49,6 +49,7 @@ public class RoutingFilter extends ZuulFilter {
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
 			ctx.addZuulRequestHeader(Constants.USER_ROLE_HEADER, StringUtils.join(roleCodes, ","));
+			ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
 		}
 
 		log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
