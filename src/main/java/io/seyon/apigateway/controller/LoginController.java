@@ -79,7 +79,7 @@ public class LoginController {
 			mav.setViewName("login");
 			return mav;
 		}
-		if (StringUtils.isNotBlank(user.getRedirectUri()) && !"/login".equals(user.getRedirectUri())) {
+		if (StringUtils.isNotBlank(user.getRedirectUri()) && !"/login".equals(user.getRedirectUri()) && !"/".equals(user.getRedirectUri())) {
 			mav.addObject("redirect", true);
 			mav.addObject("redirectUrl", user.getRedirectUri());
 
