@@ -34,7 +34,6 @@ public class ApigatewayApplication {
 	private static Logger log = LoggerFactory.getLogger(ApigatewayApplication.class);
 
 	public static void main(String[] args) {
-		log.info("API gateway Initilizing");
 		SpringApplication.run(ApigatewayApplication.class, args);
 	}
 
