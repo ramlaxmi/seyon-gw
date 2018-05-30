@@ -45,14 +45,15 @@ public class RoutingFilter extends ZuulFilter {
 		if (StringUtils.isNotBlank(sessionId)) {
 			User user = userRepo.findByEmail(email);
 			List<UserRole> userRoles = userRoleRepo.findByEmail(email);
-			List<String> roleCodes = userRoles // -> List<A>
+			String roleCodes = userRoles // -> List<A>
 					.stream() // -> Stream<A>
 					.map(UserRole::getRoleCode) // -> Stream<String>
-					.collect(Collectors.toList());
+					.collect(Collectors.joining(","));
+			log.debug("Role codes from user role {}",roleCodes);
 			ctx.addZuulRequestHeader(Constants.USER_EMAIL_HEADER, user.getEmail());
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
-			ctx.addZuulRequestHeader(Constants.USER_ROLE_HEADER, StringUtils.join(roleCodes, ","));
+			ctx.addZuulRequestHeader(Constants.USER_ROLE_HEADER, roleCodes);
 			if(null!=user.getCompanyId())
 				ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
 			else {
