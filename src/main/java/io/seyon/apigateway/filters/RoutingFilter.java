@@ -1,7 +1,6 @@
 package io.seyon.apigateway.filters;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,19 +19,14 @@ import com.netflix.zuul.exception.ZuulException;
 import io.seyon.apigateway.common.Constants;
 import io.seyon.apigateway.entity.User;
 import io.seyon.apigateway.entity.UserRole;
-import io.seyon.apigateway.exception.CompanyNotConfigruedException;
-import io.seyon.apigateway.repository.UserRepository;
-import io.seyon.apigateway.repository.UserRoleRepository;
+import io.seyon.apigateway.service.LoginService;
 
 public class RoutingFilter extends ZuulFilter {
 
 	private static Logger log = LoggerFactory.getLogger(RoutingFilter.class);
-
+	
 	@Autowired
-	UserRepository userRepo;
-
-	@Autowired
-	UserRoleRepository userRoleRepo;
+	LoginService loginService;
 
 	@Override
 	public Object run() throws ZuulException {
@@ -43,8 +37,10 @@ public class RoutingFilter extends ZuulFilter {
 		String email = (String) request.getAttribute(Constants.USER_EMAIL);
 		String sessionId = (String) request.getAttribute(Constants.USER_SESSION);
 		if (StringUtils.isNotBlank(sessionId)) {
-			User user = userRepo.findByEmail(email);
-			List<UserRole> userRoles = userRoleRepo.findByEmail(email);
+			
+			User user = loginService.findUserByEmail(email);
+			List<UserRole> userRoles = loginService.findRolesByUserEmail(email);
+			
 			String roleCodes = userRoles // -> List<A>
 					.stream() // -> Stream<A>
 					.map(UserRole::getRoleCode) // -> Stream<String>

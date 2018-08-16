@@ -1,19 +1,10 @@
 package io.seyon.apigateway.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class UserRole {
 
-	@Id
+
 	private Long id;
-	
-	@Column
 	private String email;
-	
-	@Column
 	private String roleCode;
 
 	public Long getId() {

@@ -1,33 +1,14 @@
 package io.seyon.apigateway.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-
-@Entity
 public class User {
 
 
-	@Id
 	String email;
-	
-	@Column
 	String name;
-	
-	@Column
 	String password;
-	
-	@Column
 	Boolean active;
-	
-	@Column
 	Long companyId;
-	
-	@Transient
 	String redirectUri;
-	
-	@Transient
 	String ltToken;
 	
 	public String getEmail() {
