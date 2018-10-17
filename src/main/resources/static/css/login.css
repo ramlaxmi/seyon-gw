@@ -1,0 +1,15 @@
+@media (min-width: 1200px) {
+  .navbar,.page-footer,main {
+    padding-left: 2.5em;
+	}
+	.sidebar-fixed {
+	  display:block !important;
+	} 
+}
+
+.show-hide-pwd{
+	text-align:right;
+	font-size:70%;
+	cursor:pointer;
+}
+

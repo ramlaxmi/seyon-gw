@@ -1,453 +1,244 @@
-<!doctype html>
-<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
 <meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Seyon :: New Company SignUp</title>
-<meta name="description" content="Finace App with GST">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<!-- Place favicon.ico in the root directory -->
-<link rel="stylesheet" href="/css/vendor.css">
-<link rel="stylesheet" id="theme-style" href="/css/app-seagreen.css">
-<style>
-.stepwizard-step p {
-	margin-top: 0px;
-	color: #666;
-}
-
-.stepwizard-row {
-	display: table-row;
-}
-
-.stepwizard {
-	display: table;
-	width: 100%;
-	position: relative;
-}
-
-.stepwizard-step button[disabled] {
-	/*opacity: 1 !important;
-    filter: alpha(opacity=100) !important;*/
-	
-}
-
-.stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn
-	{
-	opacity: 1 !important;
-	color: #bbb;
-}
-
-.stepwizard-row:before {
-	top: 14px;
-	bottom: 0;
-	position: absolute;
-	content: " ";
-	width: 100%;
-	height: 1px;
-	background-color: #ccc;
-	z-index: 0;
-}
-
-.stepwizard-step {
-	display: table-cell;
-	text-align: center;
-	position: relative;
-}
-
-.btn-circle {
-	width: 30px;
-	height: 30px;
-	text-align: center;
-	padding: 6px 0;
-	font-size: 12px;
-	line-height: 1.428571429;
-	border-radius: 15px;
-}
-</style>
+<title>Seyyon :: New Company SignUp</title>
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="css/mdb.min.css" rel="stylesheet">
+<!-- Your custom styles (optional) -->
+<link href="css/style.css" rel="stylesheet">
+<link href="css/login.css" rel="stylesheet">
 </head>
-<body>
-	<div class="auth">
-		<div class="auth-container w-75">
-			<div class="card">
-				<header class="auth-header">
-					<h1 class="auth-title">Seyon</h1>
-				</header>
-				<div class="auth-content">
-					<div th:if="${error}" class="alert alert-danger">
-						<span th:text="${exception}"></span>
-					</div>
-					<div class="stepwizard">
-						<div class="stepwizard-row setup-panel">
-							<div class="stepwizard-step col-xs-4">
-								<a href="#step-1" type="button"
-									class="btn btn-success btn-circle">1</a>
-								<p>
-									<small>Company</small>
-								</p>
-							</div>
-							<div class="stepwizard-step col-xs-4">
-								<a href="#step-2" type="button"
-									class="btn btn-default btn-circle" disabled="disabled">2</a>
-								<p>
-									<small>Owner</small>
-								</p>
-							</div>
-							<div class="stepwizard-step col-xs-4">
-								<a href="#step-3" type="button"
-									class="btn btn-default btn-circle" disabled="disabled">3</a>
-								<p>
-									<small>Bank</small>
-								</p>
-							</div>
-							<div class="stepwizard-step col-xs-4">
-								<a href="#step-4" type="button"
-									class="btn btn-default btn-circle" disabled="disabled">4</a>
-								<p>
-									<small>Other Detail</small>
-								</p>
-							</div>
-						</div>
-					</div>
-					<form id="signup-form" th:action="@{/signup}"
-						th:object="${companyModel}" method="POST">
-						<input type="hidden" th:field="*{ltToken}" />
-						<div class="setup-content" id="step-1">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-12">
-										<label for="firstname">Company Name *</label> <input type="text"
-											class="form-control underlined" name="companyName"
-											id="companyName" placeholder="Enter Company Name"
-											required="true" th:field="*{company.companyName}">
-									</div>
 
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-6">
-										<label for="firstname">Address Line 1 *</label> <input
-											type="text" class="form-control underlined"
-											name="addressLine1" id="addressLine1"
-											placeholder="Enter Address Line1" required="true"
-											th:field="*{company.addressLine1}">
-									</div>
-									<div class="col-sm-6">
-										<label for="firstname">Address Line 2 *</label> <input
-											type="text" class="form-control underlined"
-											name="addressLine2" id="addressLine2"
-											placeholder="Enter Address Line2" required="false"
-											th:field="*{company.addressLine2}">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-
-								<div class="row">
-									<div class="col-sm-4">
-										<label for="firstname">City *</label> <input type="text"
-											class="form-control underlined" name="city" id="city"
-											placeholder="Enter City" required="true"
-											th:field="*{company.city}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="firstname">State *</label> <input type="text"
-											class="form-control underlined" name="state" id="state"
-											placeholder="Enter State" required="true"
-											th:field="*{company.state}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="firstname">Pincode *</label> <input type="text"
-											class="form-control underlined" name="pinCode" id="pinCode"
-											placeholder="Enter Pincode" required="true"
-											th:field="*{company.pinCode}" />
-									</div>
-								</div>
-							</div>
-
-							<button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
-						</div>
-						<div class="setup-content" id="step-2">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-4">
-										<label for="email">Owner Name *</label> <input type="text"
-											class="form-control underlined" name="name" id="name"
-											placeholder="Enter name" required="true"
-											th:field="*{userInfo.name}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="email">Primary Email *</label> <input type="email"
-											class="form-control underlined" name="email" id="email"
-											placeholder="Enter email address" required="true"
-											th:field="*{userInfo.email}" /> <small>This will be
-											your user name</small>
-									</div>
-									<div class="col-sm-4">
-										<label for="email">Secondary Email</label> <input type="email"
-											class="form-control underlined" name="semail" id="semail"
-											placeholder="Enter Secondary email address" 
-											th:field="*{company.secondaryEmail}" />
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="password">Password *<span class="fa fa-eye"
-									onclick="showPwd()"></span></label>
-								<div class="row">
-									<div class="col-sm-6">
-										<input type="password" class="form-control underlined"
-											name="password" id="password" placeholder="Enter password"
-											required="true" th:field="*{userInfo.password}" />
-									</div>
-									<div class="col-sm-6">
-										<input type="password" class="form-control underlined"
-											name="retype_password" id="retype_password"
-											placeholder="Re-type password" required="true" />
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-4">
-										<label for="email">Fax No</label> <input type="tel"
-											class="form-control underlined" name="fax" id="fax"
-											placeholder="Enter Fax Number"
-											th:field="*{company.faxNo}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="email">Primary Phone *</label> <input type="tel"
-											class="form-control underlined" name="pphone" id="pphone"
-											placeholder="Enter Primary Phone" required="true"
-											th:field="*{company.phonePrimary}" /> 
-									</div>
-									<div class="col-sm-4">
-										<label for="email">Secondary Phone</label> <input type="tel"
-											class="form-control underlined" name="sphone" id="sphone"
-											placeholder="Enter Secondary Phone"
-											th:field="*{company.phoneSecondary}" />
-									</div>
-								</div>
-							</div>
-							<button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
-						</div>
-						<div class="setup-content" id="step-3">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-4">
-										<label for="email">Bank Name</label> <input type="text"
-											class="form-control underlined" name="name" id="name"
-											placeholder="Bank Name"
-											th:field="*{company.bankName}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="email">IFSC Code</label> <input type="text"
-											class="form-control underlined" name="name" id="name"
-											placeholder="IFSC Code"
-											th:field="*{company.branchIFSCCode}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="email">Branch</label> <input type="text"
-											class="form-control underlined" name="name" id="name"
-											placeholder="Branch"
-											th:field="*{company.branch}" />
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-4">
-										<label for="email">Account Number</label> <input type="text"
-											class="form-control underlined" name="name" id="name"
-											placeholder="Account Number" 
-											th:field="*{company.accountNo}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="email">Account Name</label> <input type="text"
-											class="form-control underlined" name="name" id="name"
-											placeholder="IFSC Code" 
-											th:field="*{company.accountName}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="email">Account Type</label> <input type="text"
-											class="form-control underlined" name="name" id="name"
-											placeholder="Branch"
-											th:field="*{company.accountType}" />
-									</div>
-								</div>
-							</div>
-							<button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
-						</div>
-						<div class="setup-content" id="step-4">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-4">
-										<label for="firstname">Tan Number *</label> <input type="text"
-											class="form-control underlined" name="tanNo" id="tanNo"
-											placeholder="Enter Tan Number" required="true"
-											th:field="*{company.tanNo}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="firstname">GST Number *</label> <input type="text"
-											class="form-control underlined" name="gstNo" id="gstNo"
-											placeholder="Enter GST Number" required="true"
-											th:field="*{company.gstNo}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="firstname">PAN Number *</label> <input type="text"
-											class="form-control underlined" name="panNo" id="panNo"
-											placeholder="Enter PAN number" required="true"
-											th:field="*{company.panNo}" />
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-4">
-										<label for="firstname">Service TAX Reg number</label> <input type="text"
-											class="form-control underlined" name="serviceTaxRegNo" id="serviceTaxRegNo"
-											placeholder="Enter Service tax Number" 
-											th:field="*{company.serviceTaxRegNo}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="firstname">Accounting Type</label> <input type="text"
-											class="form-control underlined" name="accountingType" id="accountingType"
-											placeholder="Accounting Type" 
-											th:field="*{company.accountingType}" />
-									</div>
-									<div class="col-sm-4">
-										<label for="firstname">Swift Code</label> <input type="text"
-											class="form-control underlined" name="panNo" id="panNo"
-											placeholder="Swift Code"
-											th:field="*{company.swiftCode}" />
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-sm-6">
-										<label for="firstname">Logo</label> <input type="file"
-											id="file-logo" /> <input type="hidden" name="logo" id="logo"
-											placeholder="Select path for logo" required="true"
-											th:field="*{company.logoImg}" />
-									</div>
-									<div class="col-sm-6">
-										<img height="100" id="img-logo" />
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="agree"> <input class="checkbox" name="agree"
-									id="agree" type="checkbox" required="true"> <span>Agree
-										the terms and <a href="/unsecured/policy.html" target="_blank">policy</a>
-								</span>
-								</label>
-							</div>
-							<button class="btn btn-success pull-right" type="submit">Finish!</button>
-						</div>
-					</form>
-
-					<div class="form-group">
-						<p class="text-muted text-center">
-							Already have an account? <a href="login.html">Login!</a>
-						</p>
-					</div>
+<body class="primary-color-dark ">
+	<!--Main layout-->
+	<main class="pt-0 mx-lg-1">
+	<div class="container-fluid mt-5">
+		<div class="card mb-4 wow fadeIn">
+			<!--Card content-->
+			<form id="signup-form" th:action="@{/signup}"
+				th:object="${companyModel}" method="POST">
+				<div class="card-header blue lighten-5">
+					<a class="logo-wrapper waves-effect"> <img
+						src="/img/seyon-web-240x70.png" class="img-fluid" alt="">
+					</a> <br /> Register your company to proceed further.  Already registered? Please <a href="/login" class="forgot-btn pull-right">Login</a>
 				</div>
-			</div>
+				<div class="card-body">
+					<input type="hidden" th:field="*{ltToken}" />
+					<div class="row">
+						<div class="col-md-3 border-right">
+							<h4 class="sub-header">
+								<span class="index">1</span>Company
+							</h4>
+							<div class="md-form">
+								<label for="companyName">Company Name *</label> <input
+									type="text" class="form-control " name="companyName"
+									id="companyName" required="true"
+									th:field="*{company.companyName}">
+							</div>
+							<div class="md-form">
+								<label for="addressLine1">Address Line 1 *</label> <input
+									type="text" class="form-control " name="addressLine1"
+									id="addressLine1" required="true"
+									th:field="*{company.addressLine1}">
+							</div>
+							<div class="md-form">
+								<label for="addressLine2">Address Line 2 *</label> <input
+									type="text" class="form-control " name="addressLine2"
+									id="addressLine2" required="false"
+									th:field="*{company.addressLine2}">
+							</div>
+							<div class="md-form">
+								<label for="city">City *</label> <input type="text"
+									class="form-control " name="city" id="city" required="true"
+									th:field="*{company.city}" />
+							</div>
+							<div class="md-form">
+								<label for="state">State *</label> <input type="text"
+									class="form-control " name="state" id="state" required="true"
+									th:field="*{company.state}" />
+							</div>
+							<div class="md-form">
+								<label for="pinCode">Pincode *</label> <input type="text"
+									class="form-control " name="pinCode" id="pinCode"
+									required="true" th:field="*{company.pinCode}" />
+							</div>
+
+						</div>
+						<div class="col-md-3 border-right">
+							<h4 class="sub-header">
+								<span class="index">2</span>Owner
+							</h4>
+							<div class="md-form">
+								<label for="name">Owner Name *</label> <input type="text"
+									class="form-control underlined" name="name" id="name"
+									required="true" th:field="*{userInfo.name}" />
+							</div>
+							<div class="md-form">
+								<label for="email">Primary Email *</label> <input type="email"
+									class="form-control underlined" name="email" id="email"
+									required="true" th:field="*{userInfo.email}" /> <small>This
+									will be your user name</small>
+							</div>
+							<div class="md-form">
+								<label for="semail">Secondary Email</label> <input type="email"
+									class="form-control underlined" name="semail" id="semail"
+									th:field="*{company.secondaryEmail}" />
+							</div>
+
+
+
+
+							<div class="md-form">
+								<label for="password">Password *</label> <input type="password"
+									class="form-control underlined" name="password" id="password"
+									required="true" th:field="*{userInfo.password}" />
+							</div>
+							<div class="md-form">
+								<label for="retype_password">ReEnter Password *</label> <input
+									type="password" class="form-control underlined"
+									name="retype_password" id="retype_password" required="true" />
+							</div>
+
+							<div class="md-form">
+								<label for="fax">Fax No</label> <input type="tel"
+									class="form-control underlined" name="fax" id="fax"
+									th:field="*{company.faxNo}" />
+							</div>
+							<div class="md-form">
+								<label for="pphone">Primary Phone *</label> <input type="tel"
+									class="form-control underlined" name="pphone" id="pphone"
+									required="true" th:field="*{company.phonePrimary}" />
+							</div>
+							<div class="md-form">
+								<label for="sphone">Secondary Phone</label> <input type="tel"
+									class="form-control underlined" name="sphone" id="sphone"
+									th:field="*{company.phoneSecondary}" />
+							</div>
+						</div>
+						<div class="col-md-3 border-right">
+							<h4 class="sub-header">
+								<span class="index">3</span>Bank
+							</h4>
+							<div class="md-form">
+								<label for="bname">Bank Name</label> <input type="text"
+									class="form-control underlined" name="name" id="bname"
+									th:field="*{company.bankName}" />
+							</div>
+							<div class="md-form">
+								<label for="ifsc">IFSC Code</label> <input type="text"
+									class="form-control underlined" name="name" id="ifsc"
+									th:field="*{company.branchIFSCCode}" />
+							</div>
+							<div class="md-form">
+								<label for="branch">Branch</label> <input type="text"
+									class="form-control underlined" name="name" id="branch"
+									th:field="*{company.branch}" />
+							</div>
+
+							<div class="md-form">
+								<label for="anumber">Account Number</label> <input type="text"
+									class="form-control underlined" name="name" id="anumber"
+									th:field="*{company.accountNo}" />
+							</div>
+							<div class="md-form">
+								<label for="aname">Account Name</label> <input type="text"
+									class="form-control underlined" name="name" id="aname"
+									th:field="*{company.accountName}" />
+							</div>
+							<div class="md-form">
+								<label for="email">Account Type</label> <input type="text"
+									class="form-control underlined" name="name" id="atype"
+									th:field="*{company.accountType}" />
+							</div>
+
+						</div>
+						<div class="col-md-3">
+							<h4 class="sub-header">
+								<span class="index">4</span>Other
+							</h4>
+							<div class="md-form">
+								<label for="tanNo">Tan Number *</label> <input type="text"
+									class="form-control underlined" name="tanNo" id="tanNo"
+									required="true" th:field="*{company.tanNo}" />
+							</div>
+							<div class="md-form">
+								<label for="gstNo">GST Number *</label> <input type="text"
+									class="form-control underlined" name="gstNo" id="gstNo"
+									required="true" th:field="*{company.gstNo}" />
+							</div>
+							<div class="md-form">
+								<label for="panNo">PAN Number *</label> <input type="text"
+									class="form-control underlined" name="panNo" id="panNo"
+									required="true" th:field="*{company.panNo}" />
+							</div>
+
+							<div class="md-form">
+								<label for="serviceTaxRegNo">Service TAX Reg number</label> <input
+									type="text" class="form-control underlined"
+									name="serviceTaxRegNo" id="serviceTaxRegNo"
+									th:field="*{company.serviceTaxRegNo}" />
+							</div>
+							<div class="md-form">
+								<label for="accountingType">Accounting Type</label> <input
+									type="text" class="form-control underlined"
+									name="accountingType" id="accountingType"
+									th:field="*{company.accountingType}" />
+							</div>
+							<div class="md-form">
+								<label for="swiftCode">Swift Code</label> <input type="text"
+									class="form-control underlined" name="swiftCode" id="swiftCode"
+									placeholder="Swift Code" th:field="*{company.swiftCode}" />
+							</div>
+
+							<div class="col-sm-6">
+								<label for="logo">Logo</label> <input type="file" id="file-logo" />
+								<input type="hidden" name="logo" id="logo" required="true"
+									th:field="*{company.logoImg}" />
+							</div>
+							<div class="col-sm-6">
+								<img height="100" id="img-logo" />
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+				<div class="card-footer">
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" name="agree"
+							id="agree" required="true"> <label
+							class="custom-control-label" for="agree"><span>Agree
+								the terms and <a href="/unsecured/policy.html" target="_blank">policy</a></label>
+					</div>
+
+					<button class="btn btn-success float-right" type="submit">Finish!</button>
+				</div>
+			</form>
 		</div>
+
 	</div>
-	
-
-	
-	<script src="/js/vendor.js"></script>
-	<script src="/js/app.js"></script>
-	<script>
-		function showPwd() {
-			var x = document.getElementById("password");
-			var y = document.getElementById("retype_password");
-			if (x.type === "password") {
-				x.type = "text";
-			} else {
-				x.type = "password";
-			}
-			if (y.type === "password") {
-				y.type = "text";
-			} else {
-				y.type = "password";
-			}
-		}
-
-		$(document)
-				.ready(
-						function() {
-
-							var navListItems = $('div.setup-panel div a'), allWells = $('.setup-content'), allNextBtn = $('.nextBtn');
-
-							allWells.hide();
-
-							navListItems
-									.click(function(e) {
-										e.preventDefault();
-										var $target = $($(this).attr('href')), $item = $(this);
-
-										if (!$item.hasClass('disabled')) {
-											navListItems.removeClass(
-													'btn-success').addClass(
-													'btn-default');
-											$item.addClass('btn-success');
-											allWells.hide();
-											$target.show();
-											$target.find('input:eq(0)').focus();
-										}
-									});
-
-							allNextBtn
-									.click(function() {
-										var curStep = $(this).closest(
-												".setup-content"), curStepBtn = curStep
-												.attr("id"), nextStepWizard = $(
-												'div.setup-panel div a[href="#'
-														+ curStepBtn + '"]')
-												.parent().next().children("a"), curInputs = curStep
-												.find("input[type='text'],input[type='url']"), isValid = true;
-
-										$(".form-group").removeClass(
-												"has-error");
-										for (var i = 0; i < curInputs.length; i++) {
-											if (!curInputs[i].validity.valid) {
-												isValid = false;
-												$(curInputs[i]).closest(
-														".form-group")
-														.addClass("has-error");
-											}
-										}
-
-										if (isValid)
-											nextStepWizard.removeAttr(
-													'disabled')
-													.trigger('click');
-									});
-
-							$('div.setup-panel div a.btn-success').trigger(
-									'click');
-
-							$('#file-logo').change(function(evt) {
-								var img = $('#img-logo');
-								var logoInp = $('#logo');
-								var file = evt.target.files;
-								if (file.length > 0) {
-									var reader = new FileReader();
-									reader.readAsDataURL(file[0]);
-									reader.onload = function() {
-										var image = reader.result;
-										img.attr('src', image);
-										logoInp.val(image);
-									}
-								}
-							});
-
-						});
+	<main> <!-- SCRIPTS --> <!-- JQuery --> <script
+		type="text/javascript" src="js/jquery-3.3.1.min.js"></script> <!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/popper.min.js"></script> <!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script> <!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script> <script
+		type="text/javascript" src="js/app.js"></script> <!-- Initializations -->
+	<script type="text/javascript">
+		// Animations initialization
+		new WOW().init();
 	</script>
 </body>
+
 </html>
