@@ -46,10 +46,10 @@
 								<span th:text="${exception}"></span>
 							</div>
 							<form id="login-form" th:action="@{/login}" th:object="${user}"
-								action="" method="POST" novalidate="">
+								method="POST" novalidate="">
 
-								<input type="hidden" th:field="*{redirectUri}" /> <input
-									type="hidden" th:field="*{ltToken}" />
+								<input type="hidden" th:field="*{redirectUri}" />
+								<input type="hidden" th:field="*{ltToken}" />
 
 								<div class="md-form">
 									<i class="fa fa-envelope prefix"></i> <label for="email">Email
