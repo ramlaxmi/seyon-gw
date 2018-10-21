@@ -73,7 +73,8 @@ public class ApigatewayApplication {
 
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
-			registry.addInterceptor(authorizationInterceptor)
+			registry
+				.addInterceptor(authorizationInterceptor)
 				.excludePathPatterns(properties.getAuthExcludeUrl());
 		}
 

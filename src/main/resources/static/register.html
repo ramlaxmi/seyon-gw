@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+	 <link href="css/login.css" rel="stylesheet">
+</head>
+
+<body class="primary-color-dark ">
+    <!--Main layout-->
+    <main class="pt-0 mx-lg-1">
+        <div class="container-fluid mt-5">
+            <div class="card mb-4 wow fadeIn">
+                <!--Card content-->
+				<form id="signup-form" th:action="@{/signup}" th:object="${companyModel}" method="POST">
+				<div class="card-header blue lighten-5">
+				<a class="logo-wrapper waves-effect">
+						<img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
+					</a>
+						<br/>
+					Register your company to proceed further
+				</div>
+                <div class="card-body">
+						<input type="hidden" th:field="*{ltToken}" />
+						<div class="row">
+						    <div class="col-md-3 border-right">
+							<h4 class="sub-header"><span class="index">1</span>Company</h4>
+							<div class="md-form">
+								<label for="companyName">Company Name *</label> 
+								<input type="text"
+									class="form-control " name="companyName"
+									id="companyName" required="true" th:field="*{company.companyName}">
+							</div>
+							<div class="md-form">
+								<label for="addressLine1">Address Line 1 *</label> 
+								<input
+									type="text" class="form-control "
+									name="addressLine1" id="addressLine1"
+									 required="true"
+									th:field="*{company.addressLine1}">
+							</div>
+							<div class="md-form">
+								<label for="addressLine2">Address Line 2 *</label> 
+								<input
+									type="text" class="form-control "
+									name="addressLine2" id="addressLine2"
+									 required="false"
+									th:field="*{company.addressLine2}">
+							</div>
+							<div class="md-form">
+								<label for="city">City *</label> 
+								<input type="text"
+									class="form-control " name="city" id="city"
+									required="true"
+									th:field="*{company.city}" />
+							</div>
+							<div class="md-form">
+								<label for="state">State *</label> 
+								<input type="text"
+									class="form-control " name="state" id="state"
+									required="true"
+									th:field="*{company.state}" />
+							</div>
+							<div class="md-form">
+								<label for="pinCode">Pincode *</label>
+								<input type="text"
+									class="form-control " name="pinCode" id="pinCode"
+									 required="true"
+									th:field="*{company.pinCode}" />
+							</div>
+
+						</div>
+						<div class="col-md-3 border-right">
+						<h4 class="sub-header"><span class="index">2</span>Owner</h4>
+									<div class="md-form">
+										<label for="name">Owner Name *</label> 
+										<input type="text"
+											class="form-control underlined" name="name" id="name"
+											 required="true"
+											th:field="*{userInfo.name}" />
+									</div>
+									<div class="md-form">
+										<label for="email">Primary Email *</label> 
+										<input type="email"
+											class="form-control underlined" name="email" id="email"
+											 required="true"
+											th:field="*{userInfo.email}" /> <small>This will be
+											your user name</small>
+									</div>
+									<div class="md-form">
+										<label for="semail">Secondary Email</label> <input type="email"
+											class="form-control underlined" name="semail" id="semail"
+											th:field="*{company.secondaryEmail}" />
+									</div>
+								
+	
+								
+				
+									<div class="md-form">
+										<label for="password">Password *</label>
+										<input type="password" class="form-control underlined"
+											name="password" id="password" 
+											required="true" th:field="*{userInfo.password}" />
+									</div>
+									<div class="md-form"><label for="retype_password">ReEnter Password *</label>
+										<input type="password" class="form-control underlined"
+											name="retype_password" id="retype_password"
+											required="true" />
+									</div>
+
+									<div class="md-form">
+										<label for="fax">Fax No</label>
+										<input type="tel"
+											class="form-control underlined" name="fax" id="fax"
+											th:field="*{company.faxNo}" />
+									</div>
+									<div class="md-form">
+										<label for="pphone">Primary Phone *</label>
+										<input type="tel"
+											class="form-control underlined" name="pphone" id="pphone"
+											required="true"	th:field="*{company.phonePrimary}" /> 
+									</div>
+									<div class="md-form">
+										<label for="sphone">Secondary Phone</label>
+										<input type="tel"
+											class="form-control underlined" name="sphone" id="sphone"
+											th:field="*{company.phoneSecondary}" />
+									</div>
+						</div>
+						<div class="col-md-3 border-right">
+						<h4 class="sub-header"><span class="index">3</span>Bank</h4>
+									<div class="md-form">
+										<label for="bname">Bank Name</label> 
+										<input type="text"
+											class="form-control underlined" name="name" id="bname"
+											
+											th:field="*{company.bankName}" />
+									</div>
+									<div class="md-form">
+										<label for="ifsc">IFSC Code</label> 
+										<input type="text"
+											class="form-control underlined" name="name" id="ifsc"
+											
+											th:field="*{company.branchIFSCCode}" />
+									</div>
+									<div class="md-form">
+										<label for="branch">Branch</label> 
+										<input type="text"
+											class="form-control underlined" name="name" id="branch"
+										
+											th:field="*{company.branch}" />
+									</div>
+						
+									<div class="md-form">
+										<label for="anumber">Account Number</label>
+										<input type="text"
+											class="form-control underlined" name="name" id="anumber"
+											
+											th:field="*{company.accountNo}" />
+									</div>
+									<div class="md-form">
+										<label for="aname">Account Name</label> <input type="text"
+											class="form-control underlined" name="name" id="aname"
+											
+											th:field="*{company.accountName}" />
+									</div>
+									<div class="md-form">
+										<label for="email">Account Type</label> <input type="text"
+											class="form-control underlined" name="name" id="atype"
+											th:field="*{company.accountType}" />
+									</div>
+							
+						</div>
+						<div class="col-md-3">
+							<h4 class="sub-header"><span class="index">4</span>Other</h4>
+									<div class="md-form">
+										<label for="tanNo">Tan Number *</label> <input type="text"
+											class="form-control underlined" name="tanNo" id="tanNo"
+											 required="true"
+											th:field="*{company.tanNo}" />
+									</div>
+									<div class="md-form">
+										<label for="gstNo">GST Number *</label> <input type="text"
+											class="form-control underlined" name="gstNo" id="gstNo"
+											required="true"
+											th:field="*{company.gstNo}" />
+									</div>
+									<div class="md-form">
+										<label for="panNo">PAN Number *</label> <input type="text"
+											class="form-control underlined" name="panNo" id="panNo"
+											required="true"
+											th:field="*{company.panNo}" />
+									</div>
+								
+									<div class="md-form">
+										<label for="serviceTaxRegNo">Service TAX Reg number</label> <input type="text"
+											class="form-control underlined" name="serviceTaxRegNo" id="serviceTaxRegNo"
+											
+											th:field="*{company.serviceTaxRegNo}" />
+									</div>
+									<div class="md-form">
+										<label for="accountingType">Accounting Type</label> <input type="text"
+											class="form-control underlined" name="accountingType" id="accountingType"
+											
+											th:field="*{company.accountingType}" />
+									</div>
+									<div class="md-form">
+										<label for="swiftCode">Swift Code</label> <input type="text"
+											class="form-control underlined" name="swiftCode" id="swiftCode"
+											placeholder="Swift Code"
+											th:field="*{company.swiftCode}" />
+									</div>
+								
+									<div class="col-sm-6">
+										<label for="logo">Logo</label> <input type="file"
+											id="file-logo" /> <input type="hidden" name="logo" id="logo"
+											required="true"
+											th:field="*{company.logoImg}" />
+									</div>
+									<div class="col-sm-6">
+										<img height="100" id="img-logo" />
+									</div>
+						</div>
+						</div>
+					
+
+                </div>
+				<div class="card-footer">
+				<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" name="agree"
+									id="agree" type="checkbox" required="true">
+								<label class="custom-control-label" for="agree"><span>Agree
+										the terms and <a href="/unsecured/policy.html" target="_blank">policy</a>
+										</label>
+							</div>
+					<button class="btn btn-success float-right" type="submit">Finish!</button>
+				</div>
+				
+            </div>
+				</form>
+        </div>
+	<main>
+	 <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+	
+	<script type="text/javascript" src="js/app.js"></script>
+	  <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+</body>
+
+</html>
