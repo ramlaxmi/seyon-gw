@@ -1,17 +1,27 @@
 package io.seyon.apigateway;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.Proxy.Type;
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
@@ -29,10 +39,15 @@ import io.seyon.apigateway.filters.RoutingFilter;
 @EnableZuulProxy
 @EnableConfigurationProperties
 @EnableCaching
-public class ApigatewayApplication {
+@EnableOAuth2Sso
+public class ApigatewayApplication extends WebSecurityConfigurerAdapter{
 
 	private static Logger log = LoggerFactory.getLogger(ApigatewayApplication.class);
 
+	@Autowired
+	private SeyonGwProperties properties;
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ApigatewayApplication.class, args);
 	}
@@ -49,7 +64,7 @@ public class ApigatewayApplication {
 
 	
 	@Bean
-	public RestTemplate restTemplate() {
+	public RestTemplate restTemplate() {   
 		RestTemplate restTemplate = new RestTemplate();
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 		converter.setObjectMapper(new ObjectMapper());
@@ -57,26 +72,17 @@ public class ApigatewayApplication {
 		return restTemplate;
 	}
 	
-	@AutoConfigurationPackage
-	protected static class AuthServer implements WebMvcConfigurer {
-
-		private static final Logger log = LoggerFactory.getLogger(AuthServer.class);
-
-		@Autowired
-		private Environment environment;
-
-		@Autowired
-		private SeyonGwProperties properties;
-
-		@Autowired
-		HandlerInterceptor authorizationInterceptor;
-
-		@Override
-		public void addInterceptors(InterceptorRegistry registry) {
-			registry
-				.addInterceptor(authorizationInterceptor)
-				.excludePathPatterns(properties.getAuthExcludeUrl());
-		}
-
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		List<String> urlList=properties.getAuthExcludeUrl();
+		String urls[]=new String[urlList.size()];
+		urls=urlList.toArray(urls);
+		http
+			.antMatcher("/**")
+			.authorizeRequests()
+			.antMatchers(urls)
+			.permitAll()
+			.anyRequest()
+		.authenticated();
 	}
 }
