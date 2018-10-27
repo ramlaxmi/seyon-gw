@@ -17,6 +17,13 @@ public class SeyonGwProperties {
 	Map<String, String> restUrlMap;
 	String restUrlDomain;
 	
+	String proxyHost;
+	int proxyPort;
+	String proxyUser;
+	String proxyPassword;
+	boolean useProxyFlag;
+	boolean skipSslValidationFlag;
+	  
 	public String getLoginSuccessUrl() {
 		return loginSuccessUrl;
 	}
@@ -55,6 +62,54 @@ public class SeyonGwProperties {
 
 	public void setRestUrlDomain(String restUrlDomain) {
 		this.restUrlDomain = restUrlDomain;
+	}
+
+	public String getProxyHost() {
+		return proxyHost;
+	}
+
+	public void setProxyHost(String proxyHost) {
+		this.proxyHost = proxyHost;
+	}
+
+	public int getProxyPort() {
+		return proxyPort;
+	}
+
+	public void setProxyPort(int proxyPort) {
+		this.proxyPort = proxyPort;
+	}
+
+	public String getProxyUser() {
+		return proxyUser;
+	}
+
+	public void setProxyUser(String proxyUser) {
+		this.proxyUser = proxyUser;
+	}
+
+	public String getProxyPassword() {
+		return proxyPassword;
+	}
+
+	public void setProxyPassword(String proxyPassword) {
+		this.proxyPassword = proxyPassword;
+	}
+
+	public boolean isUseProxyFlag() {
+		return useProxyFlag;
+	}
+
+	public void setUseProxyFlag(boolean useProxyFlag) {
+		this.useProxyFlag = useProxyFlag;
+	}
+
+	public boolean getSkipSslValidationFlag() {
+		return skipSslValidationFlag;
+	}
+
+	public void setSkipSslValidationFlag(boolean skipSslValidationFlag) {
+		this.skipSslValidationFlag = skipSslValidationFlag;
 	}
 	
 }

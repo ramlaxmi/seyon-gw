@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 
 import io.seyon.apigateway.interceptor.AuthorizationInterceptor;
 
-@Configuration
+//@Configuration
 public class ZuulHandlerBeanPostProcessor extends InstantiationAwareBeanPostProcessorAdapter {
 
     @Autowired
