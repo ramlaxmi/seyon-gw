@@ -1,66 +1,50 @@
 package io.seyon.apigateway.interceptor;
 
-import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import io.seyon.apigateway.common.Constants;
-import io.seyon.apigateway.entity.UserSession;
-import io.seyon.apigateway.repository.UserSessionRepository;
 
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter  {
 
 	private static Logger log = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 	
-	@Autowired
-	UserSessionRepository userSessRepo;
-	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)	throws Exception {
 		log.info("Url Access {}",request.getRequestURI());
-		
-		request.getSession().setAttribute(Constants.REDIRECT_URI, request.getRequestURI());
-		
-		Cookie[] cookies=request.getCookies();
-		String sessionId=null;
-		if(null==cookies) {
-			log.error("Cookie Not found");
-			response.sendRedirect("/login");
-			return false;	
-		}
-		for(Cookie cookie:cookies){
-			log.debug("verifying cookie :{}, path:{}",cookie.getName(),cookie.getPath());
-			if(Constants.X_AUTH_COOKIE.equalsIgnoreCase(cookie.getName())){
-				sessionId=cookie.getValue();
-				break;
-			}
-		}
-		if(StringUtils.isBlank(sessionId)){
-			log.error("Session id is null");
-			response.sendRedirect("/login");
-			return false;
-		}
-
-		log.info("Session id is {}",sessionId);
-		UserSession us=userSessRepo.findBySessionId(sessionId);
-		if(null==us || us.getExpiryTime().before(new Date())) {
-			log.error("Session Expired");
-			response.sendRedirect("/login");
-			return false;	
-		}
-		log.info("User Session details is {}",us);
-		request.setAttribute(Constants.USER_SESSION, us.getSessionId());
-		request.setAttribute(Constants.USER_EMAIL, us.getEmail());
+		 log.info("Pre handle method - check handling start time");
+		    long startTime = System.currentTimeMillis();
+		    String userEmail=null;
+		    String userSessionId=null;
+		    OAuth2Authentication principal = (OAuth2Authentication) request.getUserPrincipal();
+		    request.setAttribute("executionTime", startTime);
+		    log.info("Principal "+principal);
+		    try {
+		         if (principal != null) {
+		                Authentication authentication = principal.getUserAuthentication();
+		                Map<String, String> detailsMap = new LinkedHashMap<>();
+		                detailsMap = (Map<String, String>) authentication.getDetails();
+		                userEmail=detailsMap.get("email");
+		                OAuth2AuthenticationDetails details=(OAuth2AuthenticationDetails) principal.getDetails();
+		                userSessionId=details.getSessionId();
+		            }
+		    } catch (Exception e) {
+		        log.error("dumping principal " + principal + "failed, exception: ", e );
+		    }
+		request.setAttribute(Constants.USER_SESSION, userSessionId);
+		request.setAttribute(Constants.USER_EMAIL, userEmail);
 		return true;
 	}
 }

@@ -46,7 +46,7 @@ public class RoutingFilter extends ZuulFilter {
 					.map(UserRole::getRoleCode) // -> Stream<String>
 					.collect(Collectors.joining(","));
 			log.debug("Role codes from user role {}",roleCodes);
-			ctx.addZuulRequestHeader(Constants.USER_EMAIL_HEADER, user.getEmail());
+			ctx.addZuulRequestHeader(Constants.USER_EMAIL_HEADER, email);
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
 			ctx.addZuulRequestHeader(Constants.USER_ROLE_HEADER, roleCodes);
