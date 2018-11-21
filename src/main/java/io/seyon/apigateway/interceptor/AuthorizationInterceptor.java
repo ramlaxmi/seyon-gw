@@ -17,34 +17,36 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import io.seyon.apigateway.common.Constants;
 
 @Component
-public class AuthorizationInterceptor extends HandlerInterceptorAdapter  {
+public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
 	private static Logger log = LoggerFactory.getLogger(AuthorizationInterceptor.class);
-	
+
+
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)	throws Exception {
-		log.info("Url Access {}",request.getRequestURI());
-		 log.info("Pre handle method - check handling start time");
-		    long startTime = System.currentTimeMillis();
-		    String userEmail=null;
-		    String userSessionId=null;
-		    OAuth2Authentication principal = (OAuth2Authentication) request.getUserPrincipal();
-		    request.setAttribute("executionTime", startTime);
-		    log.info("Principal "+principal);
-		    try {
-		         if (principal != null) {
-		                Authentication authentication = principal.getUserAuthentication();
-		                Map<String, String> detailsMap = new LinkedHashMap<>();
-		                detailsMap = (Map<String, String>) authentication.getDetails();
-		                userEmail=detailsMap.get("email");
-		                OAuth2AuthenticationDetails details=(OAuth2AuthenticationDetails) principal.getDetails();
-		                userSessionId=details.getSessionId();
-		            }
-		    } catch (Exception e) {
-		        log.error("dumping principal " + principal + "failed, exception: ", e );
-		    }
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		log.info("Url Access {}", request.getRequestURI());
+		log.info("Pre handle method - check handling start time");
+		long startTime = System.currentTimeMillis();
+		String userEmail = null;
+		String userSessionId = null;
+		OAuth2Authentication principal = (OAuth2Authentication) request.getUserPrincipal();
+		request.setAttribute("executionTime", startTime);
+		log.info("Principal " + principal);
+		try {
+			if (principal != null) {
+				Authentication authentication = principal.getUserAuthentication();
+				Map<String, String> detailsMap = new LinkedHashMap<>();
+				detailsMap = (Map<String, String>) authentication.getDetails();
+				userEmail = detailsMap.get("email");
+				OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) principal.getDetails();
+				userSessionId = details.getSessionId();
+			}
+		} catch (Exception e) {
+			log.error("dumping principal " + principal + "failed, exception: ", e);
+		}
 		request.setAttribute(Constants.USER_SESSION, userSessionId);
 		request.setAttribute(Constants.USER_EMAIL, userEmail);
-		return true;
+		return true;	
 	}
 }

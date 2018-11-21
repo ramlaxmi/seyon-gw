@@ -19,6 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import io.seyon.apigateway.common.SeyonGwProperties;
 import io.seyon.apigateway.entity.User;
 import io.seyon.apigateway.entity.UserRole;
+import io.seyon.apigateway.exception.InvalidPasswordException;
+import io.seyon.apigateway.exception.UserInActiveException;
+import io.seyon.apigateway.exception.UserNotFoundException;
 
 @Service
 public class LoginService {
@@ -27,42 +30,58 @@ public class LoginService {
 	@Qualifier("bcryptEncoder")
 	PasswordEncoder encoder;
 
-
 	@Autowired
 	private RestTemplate restTemplate;
-	
-	
+
+
 	@Autowired
 	SeyonGwProperties properties;
 
-		
+	public boolean authenticate(String email, String password)
+			throws UserNotFoundException, UserInActiveException, InvalidPasswordException {
+
+		User user = findUserByEmail(email);
+
+		if (null == user) {
+			throw new UserNotFoundException("user not found");
+		}
+		if (!user.getActive()) {
+			throw new UserInActiveException("User Inactive");
+		}
+		String encodedPassword = user.getPassword();
+		boolean matched = encoder.matches(password, encodedPassword);
+		if (!matched) {
+			throw new InvalidPasswordException("Password Missmatch");
+		}
+		return true;
+
+	}
+
 	@Cacheable("/UserByEmail")
 	public User findUserByEmail(String email) {
-		String url=properties.getRestUrlDomain()+properties.getRestUrlMap().get("findUserByEmail");
-		UriComponentsBuilder builder = UriComponentsBuilder
-				.fromUriString(url)
-				.queryParam("email", email);
-		
+		String url = properties.getRestUrlDomain() + properties.getRestUrlMap().get("findUserByEmail");
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url).queryParam("email", email);
+
 		HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_JSON); 
-	    HttpEntity<String> entity = new HttpEntity<String>(email, headers); 
-	    url=url.concat("?email=").concat(email);
-	    ResponseEntity<User> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, User.class);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> entity = new HttpEntity<String>(email, headers);
+		url = url.concat("?email=").concat(email);
+		ResponseEntity<User> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity,
+				User.class);
 		return response.getBody();
 	}
-	
+
 	@Cacheable("/UserRolesByUserEmail")
-	public List<UserRole> findRolesByUserEmail(String email){
-		//findRolesByUserEmail
-		String url=properties.getRestUrlDomain()+properties.getRestUrlMap().get("findRolesByUserEmail");
+	public List<UserRole> findRolesByUserEmail(String email) {
+		// findRolesByUserEmail
+		String url = properties.getRestUrlDomain() + properties.getRestUrlMap().get("findRolesByUserEmail");
 		HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_JSON); 
-	    HttpEntity<String> entity = new HttpEntity<String>(email, headers); 
-	    UriComponentsBuilder builder = UriComponentsBuilder
-				.fromUriString(url)
-				.queryParam("email", email);
-	    ResponseEntity<UserRole[]> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, UserRole[].class);
-	    UserRole roles[]= response.getBody();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> entity = new HttpEntity<String>(email, headers);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url).queryParam("email", email);
+		ResponseEntity<UserRole[]> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity,
+				UserRole[].class);
+		UserRole roles[] = response.getBody();
 		return Arrays.asList(roles);
 	}
 }
