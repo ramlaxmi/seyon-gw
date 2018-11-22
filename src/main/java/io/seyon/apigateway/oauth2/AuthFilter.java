@@ -23,6 +23,7 @@ import org.springframework.security.oauth2.client.token.AccessTokenProvider;
 import org.springframework.security.oauth2.client.token.AccessTokenProviderChain;
 import org.springframework.security.oauth2.client.token.OAuth2AccessTokenSupport;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeAccessTokenProvider;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -42,6 +43,9 @@ public class AuthFilter {
 
 	@Autowired
 	RequestHelper requestHelper;
+	
+	@Autowired
+	SeyyonOaut2SuccessHandler successHandler;
 
 	public Filter oauthFilter() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
 	    OAuth2ClientAuthenticationProcessingFilter oauthFilter = new OAuth2ClientAuthenticationProcessingFilter("/login");
@@ -60,11 +64,9 @@ public class AuthFilter {
 	    oauthFilter.setRestTemplate(oauthTemplate);
 	    
 	    // add succcess handler here 
-	   // oauthFilter.setAuthenticationSuccessHandler((HttpServletRequest request,
-		//		HttpServletResponse response, Authentication authentication)->{
-	    	
-	    //});
-	    
+	   oauthFilter.setAuthenticationSuccessHandler(successHandler);
+	   
+	   
 	    UserInfoTokenServices userInfoTokenService = new UserInfoTokenServices(resourceServer.getUserInfoUri(), resource.getClientId());
 	    userInfoTokenService.setRestTemplate(oauthTemplate);
 	    oauthFilter.setTokenServices(userInfoTokenService);
