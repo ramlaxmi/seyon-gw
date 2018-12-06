@@ -23,7 +23,7 @@ public class SeyonGwProperties {
 	String proxyUser;
 	String proxyPassword;
 	boolean useProxyFlag;
-	boolean skipSslValidationFlag;
+	boolean sslValidationFlag;
 
 	public String getLoginSuccessUrl() {
 		return loginSuccessUrl;
@@ -105,12 +105,12 @@ public class SeyonGwProperties {
 		this.useProxyFlag = useProxyFlag;
 	}
 
-	public boolean isSkipSslValidationFlag() {
-		return skipSslValidationFlag;
+	public boolean isSslValidationFlag() {
+		return sslValidationFlag;
 	}
 
-	public void setSkipSslValidationFlag(boolean skipSslValidationFlag) {
-		this.skipSslValidationFlag = skipSslValidationFlag;
+	public void setSslValidationFlag(boolean sslValidationFlag) {
+		this.sslValidationFlag = sslValidationFlag;
 	}
 
 

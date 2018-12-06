@@ -65,7 +65,7 @@ public class LoginService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<String> entity = new HttpEntity<String>(email, headers);
-		url = url.concat("?email=").concat(email);
+		//url = url.concat("?email=").concat(email);
 		ResponseEntity<User> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity,
 				User.class);
 		return response.getBody();

@@ -36,7 +36,7 @@ public class RequestHelper {
 		HttpClientBuilder httpClientBuilder = HttpClients.custom();
 
 		// Skip SSL validation based on condition
-		if (props.isSkipSslValidationFlag()) {
+		if (props.isSslValidationFlag()) {
 			TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
 
 			SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
