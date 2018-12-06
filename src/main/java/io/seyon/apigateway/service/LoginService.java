@@ -1,12 +1,7 @@
 package io.seyon.apigateway.service;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,12 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import io.seyon.apigateway.common.SeyonGwProperties;
 import io.seyon.apigateway.entity.User;
 import io.seyon.apigateway.entity.UserRole;
-import io.seyon.apigateway.entity.UserSession;
 import io.seyon.apigateway.exception.InvalidPasswordException;
 import io.seyon.apigateway.exception.UserInActiveException;
 import io.seyon.apigateway.exception.UserNotFoundException;
-import io.seyon.apigateway.model.Success;
-import io.seyon.apigateway.repository.UserSessionRepository;
 
 @Service
 public class LoginService {
@@ -38,21 +30,18 @@ public class LoginService {
 	@Qualifier("bcryptEncoder")
 	PasswordEncoder encoder;
 
-
 	@Autowired
 	private RestTemplate restTemplate;
-	
-	@Autowired
-	UserSessionRepository userSessRepo;
-	
+
+
 	@Autowired
 	SeyonGwProperties properties;
 
 	public boolean authenticate(String email, String password)
 			throws UserNotFoundException, UserInActiveException, InvalidPasswordException {
-		
+
 		User user = findUserByEmail(email);
-		
+
 		if (null == user) {
 			throw new UserNotFoundException("user not found");
 		}
@@ -67,58 +56,32 @@ public class LoginService {
 		return true;
 
 	}
-	
-	public String getSession(String email,String ip) {
-		UUID uuid= UUID.randomUUID();
-		String uniqueId=uuid.toString().replaceAll("-", "");
-		UserSession us= new UserSession();
-		us.setCreatedTime(new Date());
-		us.setEmail(email);
-		us.setMachineIp(ip);
-		us.setSessionId(uniqueId);
-		us.setExpiry(properties.getCookieMaxAgeInSeconds());
-		Calendar cal= Calendar.getInstance();
-		cal.setTime(new Date());
-		cal.add(Calendar.SECOND,properties.getCookieMaxAgeInSeconds());
-		us.setExpiryTime(cal.getTime());
-		userSessRepo.save(us);
-		return uniqueId;
-	}
 
-	@Transactional
-	public void deleteSession(String sessionId) {
-		userSessRepo.deleteBySessionId(sessionId);
-		return;
-		
-	}
-	
 	@Cacheable("/UserByEmail")
 	public User findUserByEmail(String email) {
-		String url=properties.getRestUrlDomain()+properties.getRestUrlMap().get("findUserByEmail");
-		UriComponentsBuilder builder = UriComponentsBuilder
-				.fromUriString(url)
-				.queryParam("email", email);
-		
+		String url = properties.getRestUrlDomain() + properties.getRestUrlMap().get("findUserByEmail");
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url).queryParam("email", email);
+
 		HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_JSON); 
-	    HttpEntity<String> entity = new HttpEntity<String>(email, headers); 
-	    url=url.concat("?email=").concat(email);
-	    ResponseEntity<User> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, User.class);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> entity = new HttpEntity<String>(email, headers);
+		url = url.concat("?email=").concat(email);
+		ResponseEntity<User> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity,
+				User.class);
 		return response.getBody();
 	}
-	
+
 	@Cacheable("/UserRolesByUserEmail")
-	public List<UserRole> findRolesByUserEmail(String email){
-		//findRolesByUserEmail
-		String url=properties.getRestUrlDomain()+properties.getRestUrlMap().get("findRolesByUserEmail");
+	public List<UserRole> findRolesByUserEmail(String email) {
+		// findRolesByUserEmail
+		String url = properties.getRestUrlDomain() + properties.getRestUrlMap().get("findRolesByUserEmail");
 		HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_JSON); 
-	    HttpEntity<String> entity = new HttpEntity<String>(email, headers); 
-	    UriComponentsBuilder builder = UriComponentsBuilder
-				.fromUriString(url)
-				.queryParam("email", email);
-	    ResponseEntity<UserRole[]> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, UserRole[].class);
-	    UserRole roles[]= response.getBody();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<String> entity = new HttpEntity<String>(email, headers);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url).queryParam("email", email);
+		ResponseEntity<UserRole[]> response = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity,
+				UserRole[].class);
+		UserRole roles[] = response.getBody();
 		return Arrays.asList(roles);
 	}
 }

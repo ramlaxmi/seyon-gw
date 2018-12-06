@@ -35,7 +35,7 @@ public class RequestService {
 		HttpClientBuilder httpClientBuilder = HttpClients.custom();
 
 		// Skip SSL validation based on condition
-		if (props.getSkipSslValidationFlag()) {
+		if (props.isSkipSslValidationFlag()) {
 			TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
 
 			SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()

@@ -2,28 +2,20 @@ package io.seyon.apigateway.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class UserSession {
 
-	@Id
+	
 	private String sessionId;
-	@Column
+	
 	private String email;
 	
-	@Column
 	private String machineIp;
 	
-	@Column
 	private Date createdTime;
 	
-	@Column
+
 	private Integer expiry;
 	
-	@Column
 	private Date expiryTime;
 
 	public String getSessionId() {

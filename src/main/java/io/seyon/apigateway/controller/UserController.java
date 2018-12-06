@@ -32,7 +32,12 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/reset-password")
+	@GetMapping("/")
+	public String successLogin(@ModelAttribute User user, Model model, HttpServletRequest request) {
+		return "success";
+	}
+	
+/*	@GetMapping("/reset-password")
 	public String resetPassword(@ModelAttribute User user, Model model, HttpServletRequest request) {
 		model.addAttribute("error", false);
 		String token = TokenGenerator.generateToken("LT");
@@ -57,7 +62,7 @@ public class UserController {
 		model.addAttribute("message", success.getMessage());
 		
 		return "forgetPassword";
-	}
+	}*/
 	
 	
 	@GetMapping("/signup")
@@ -67,6 +72,12 @@ public class UserController {
 		request.getSession().setAttribute("LT", token);
 		companyModel.setLtToken(token);
 		return "signUp";
+	}
+	
+	@GetMapping("/userNotFound")
+	public String userNotFound() {
+		log.info("User Not Registered");
+		return "userNotFound";
 	}
 	
 	@PostMapping("/signup")

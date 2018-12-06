@@ -4,26 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix="seyon.gw")
+@ConfigurationProperties(prefix = "seyon.gw")
 public class SeyonGwProperties {
 
-	List<String> authExcludeUrl= new ArrayList<>();
+	List<String> authExcludeUrl = new ArrayList<>();
 	String loginSuccessUrl;
 	Integer cookieMaxAgeInSeconds;
 	Map<String, String> restUrlMap;
 	String restUrlDomain;
-	
+
 	String proxyHost;
 	int proxyPort;
 	String proxyUser;
 	String proxyPassword;
 	boolean useProxyFlag;
 	boolean skipSslValidationFlag;
-	  
+
 	public String getLoginSuccessUrl() {
 		return loginSuccessUrl;
 	}
@@ -104,12 +105,14 @@ public class SeyonGwProperties {
 		this.useProxyFlag = useProxyFlag;
 	}
 
-	public boolean getSkipSslValidationFlag() {
+	public boolean isSkipSslValidationFlag() {
 		return skipSslValidationFlag;
 	}
 
 	public void setSkipSslValidationFlag(boolean skipSslValidationFlag) {
 		this.skipSslValidationFlag = skipSslValidationFlag;
 	}
-	
+
+
+
 }
