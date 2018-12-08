@@ -36,7 +36,7 @@ public class RequestHelper {
 		HttpClientBuilder httpClientBuilder = HttpClients.custom();
 
 		// Skip SSL validation based on condition
-		if (props.isSslValidationFlag()) {
+		if (null!=props.isSslValidationFlag() && props.isSslValidationFlag()) {
 			TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
 
 			SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom()
@@ -47,7 +47,7 @@ public class RequestHelper {
 		}
 
 		// Set proxy based on condition
-		if (props.isUseProxyFlag()) {
+		if (null!=props.isUseProxyFlag() && props.isUseProxyFlag()) {
 			CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 			credentialsProvider.setCredentials(AuthScope.ANY,
 					new UsernamePasswordCredentials(props.getProxyUser(), props.getProxyPassword()));

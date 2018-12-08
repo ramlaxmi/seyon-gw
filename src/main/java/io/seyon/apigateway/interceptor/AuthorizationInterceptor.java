@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -15,13 +17,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import io.seyon.apigateway.common.Constants;
+import io.seyon.apigateway.entity.User;
+import io.seyon.apigateway.service.LoginService;
 
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
 	private static Logger log = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 
-
+	@Autowired
+	ApplicationContext context;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -33,6 +39,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 		OAuth2Authentication principal = (OAuth2Authentication) request.getUserPrincipal();
 		request.setAttribute("executionTime", startTime);
 		log.info("Principal " + principal);
+		User user = null;
 		try {
 			if (principal != null) {
 				Authentication authentication = principal.getUserAuthentication();
@@ -41,12 +48,19 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 				userEmail = detailsMap.get("email");
 				OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) principal.getDetails();
 				userSessionId = details.getSessionId();
+				LoginService loginService= context.getBean(LoginService.class);
+				user = loginService.findUserByEmail(userEmail);
+				if(null==user) {
+					response.sendRedirect("/userNotFound");
+					return true;
+				}
 			}
 		} catch (Exception e) {
 			log.error("dumping principal " + principal + "failed, exception: ", e);
+			return false;
 		}
 		request.setAttribute(Constants.USER_SESSION, userSessionId);
-		request.setAttribute(Constants.USER_EMAIL, userEmail);
+		request.setAttribute(Constants.USER, user);
 		return true;	
 	}
 }

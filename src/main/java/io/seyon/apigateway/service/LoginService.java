@@ -57,7 +57,7 @@ public class LoginService {
 
 	}
 
-	@Cacheable("/UserByEmail")
+	@Cacheable(value="/UserByEmail",key="#email")
 	public User findUserByEmail(String email) {
 		String url = properties.getRestUrlDomain() + properties.getRestUrlMap().get("findUserByEmail");
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url).queryParam("email", email);
@@ -71,7 +71,7 @@ public class LoginService {
 		return response.getBody();
 	}
 
-	@Cacheable("/UserRolesByUserEmail")
+	@Cacheable(value="/UserRolesByUserEmail",key="#email")
 	public List<UserRole> findRolesByUserEmail(String email) {
 		// findRolesByUserEmail
 		String url = properties.getRestUrlDomain() + properties.getRestUrlMap().get("findRolesByUserEmail");

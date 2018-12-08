@@ -113,8 +113,9 @@ public class UserController {
 		try{
 			Success success=userService.createCompany(companyModel);
 			if(success.getCode()!=0) {
+				log.error(success.getMessage());
 				model.addAttribute("error", true);
-				model.addAttribute("exception", success.getMessage());
+				model.addAttribute("exception", "Error While creating Company");
 				return "signUp";
 			}
 				
@@ -123,6 +124,7 @@ public class UserController {
 			model.addAttribute("exception", "Some thing went wrong please contact administrator");
 			return "signUp";
 		}
+		
 		return "success";
 	}
 }

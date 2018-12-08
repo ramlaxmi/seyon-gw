@@ -1,6 +1,7 @@
 package io.seyon.apigateway.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -34,6 +35,7 @@ public class UserService {
 	}
 	
 	
+	@CacheEvict(value= {"/UserByEmail","/UserRolesByUserEmail"},key="#company.userInfo.email")
 	public Success createCompany(CompanyModel company) {
 		
 		company.getCompany().setOwnerName(company.getUserInfo().getName());

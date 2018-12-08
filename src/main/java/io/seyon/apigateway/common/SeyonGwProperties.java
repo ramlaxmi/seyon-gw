@@ -19,11 +19,11 @@ public class SeyonGwProperties {
 	String restUrlDomain;
 
 	String proxyHost;
-	int proxyPort;
+	Integer proxyPort;
 	String proxyUser;
 	String proxyPassword;
-	boolean useProxyFlag;
-	boolean sslValidationFlag;
+	Boolean useProxyFlag;
+	Boolean sslValidationFlag;
 
 	public String getLoginSuccessUrl() {
 		return loginSuccessUrl;
@@ -73,11 +73,11 @@ public class SeyonGwProperties {
 		this.proxyHost = proxyHost;
 	}
 
-	public int getProxyPort() {
+	public Integer getProxyPort() {
 		return proxyPort;
 	}
 
-	public void setProxyPort(int proxyPort) {
+	public void setProxyPort(Integer proxyPort) {
 		this.proxyPort = proxyPort;
 	}
 
@@ -97,19 +97,19 @@ public class SeyonGwProperties {
 		this.proxyPassword = proxyPassword;
 	}
 
-	public boolean isUseProxyFlag() {
+	public Boolean isUseProxyFlag() {
 		return useProxyFlag;
 	}
 
-	public void setUseProxyFlag(boolean useProxyFlag) {
+	public void setUseProxyFlag(Boolean useProxyFlag) {
 		this.useProxyFlag = useProxyFlag;
 	}
 
-	public boolean isSslValidationFlag() {
+	public Boolean isSslValidationFlag() {
 		return sslValidationFlag;
 	}
 
-	public void setSslValidationFlag(boolean sslValidationFlag) {
+	public void setSslValidationFlag(Boolean sslValidationFlag) {
 		this.sslValidationFlag = sslValidationFlag;
 	}
 

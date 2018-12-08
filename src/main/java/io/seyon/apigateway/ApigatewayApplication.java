@@ -1,5 +1,7 @@
 package io.seyon.apigateway;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,9 +106,12 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter{
 
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
+			List<String> excludeUrl=properties.getAuthExcludeUrl();
+			excludeUrl.add("/userNotFound");
+			excludeUrl.add("/signup");
 			registry
 				.addInterceptor(authorizationInterceptor)
-				.excludePathPatterns(properties.getAuthExcludeUrl());
+				.excludePathPatterns(excludeUrl);
 		}
 
 	}
