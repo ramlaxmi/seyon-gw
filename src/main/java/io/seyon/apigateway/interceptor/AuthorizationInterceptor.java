@@ -31,14 +31,13 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		log.info("Url Access {}", request.getRequestURI());
-		log.info("Pre handle method - check handling start time");
+		log.debug("Url Access {}", request.getRequestURI());
 		long startTime = System.currentTimeMillis();
 		String userEmail = null;
 		String userSessionId = null;
 		OAuth2Authentication principal = (OAuth2Authentication) request.getUserPrincipal();
 		request.setAttribute("executionTime", startTime);
-		log.info("Principal " + principal);
+		log.debug("Principal " + principal);
 		User user = null;
 		try {
 			if (principal != null) {
@@ -56,7 +55,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 		} catch (Exception e) {
-			log.error("dumping principal " + principal + "failed, exception: ", e);
+			log.error("Restricting principal " + principal + "failed, exception: {} ", e);
 			return false;
 		}
 		request.setAttribute(Constants.USER_SESSION, userSessionId);

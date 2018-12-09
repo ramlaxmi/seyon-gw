@@ -62,7 +62,7 @@ public class RoutingFilter extends ZuulFilter {
 			
 		}
 
-		log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+		log.debug(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 		return null;
 	}
 
