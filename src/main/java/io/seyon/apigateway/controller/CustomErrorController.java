@@ -3,6 +3,8 @@ package io.seyon.apigateway.controller;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class CustomErrorController implements ErrorController {
 
 	private static final String PATH = "/error";
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(CustomErrorController.class);
+
 
 	@Override
 	public String getErrorPath() {
@@ -44,7 +50,10 @@ public class CustomErrorController implements ErrorController {
 				mav.addObject("error", "Service Unavailable");
 			}
 			}
-
+			String exception = (String) request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
+			log.error("ERROR ERROR *************************************************************ERROR ERROR");
+			log.error(exception);
+			log.error("ERROR ERROR *************************************************************ERROR ERROR");
 		}
 
 		return mav;
