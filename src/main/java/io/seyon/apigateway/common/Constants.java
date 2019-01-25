@@ -11,5 +11,6 @@ public interface Constants {
 	final String USER_SESSION_ID_HEADER="X-USER-SESSION";
 	final String USER_ROLE_HEADER="X-USER-ROLES";
 	final String COMPANY_ID="X-COMPANY-ID";
+	final String USER = "USER";
 
 }

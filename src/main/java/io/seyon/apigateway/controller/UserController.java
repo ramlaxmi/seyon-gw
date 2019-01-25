@@ -1,10 +1,17 @@
 package io.seyon.apigateway.controller;
 
+import java.security.Principal;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +39,12 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/reset-password")
+	@GetMapping("/")
+	public String successLogin(@ModelAttribute User user, Model model, HttpServletRequest request) {
+		return "success";
+	}
+	
+/*	@GetMapping("/reset-password")
 	public String resetPassword(@ModelAttribute User user, Model model, HttpServletRequest request) {
 		model.addAttribute("error", false);
 		String token = TokenGenerator.generateToken("LT");
@@ -57,16 +69,35 @@ public class UserController {
 		model.addAttribute("message", success.getMessage());
 		
 		return "forgetPassword";
-	}
+	}*/
 	
 	
 	@GetMapping("/signup")
-	public String signUp(@ModelAttribute CompanyModel companyModel, Model model, HttpServletRequest request) {
+	public String signUp(@ModelAttribute CompanyModel companyModel, Model model, HttpServletRequest request,Authentication authentication) {
+		
+		//check the authenticated user is registered in our system
+		OAuth2Authentication auth= (OAuth2Authentication) authentication;
+		UsernamePasswordAuthenticationToken userDetails=(UsernamePasswordAuthenticationToken) auth.getUserAuthentication();
+		Map<String, String> detailsMap = new LinkedHashMap<>();
+		
+		detailsMap = (Map<String, String>) userDetails.getDetails();
+		String userEmail = detailsMap.get("email");
+		String name = detailsMap.get("name");
+		io.seyon.apigateway.model.User userinfo=companyModel.getUserInfo();
+		userinfo.setEmail(userEmail);
+		userinfo.setName(name);
 		
 		String token = TokenGenerator.generateToken("LT");
 		request.getSession().setAttribute("LT", token);
 		companyModel.setLtToken(token);
+		
 		return "signUp";
+	}
+	
+	@GetMapping("/userNotFound")
+	public String userNotFound() {
+		log.info("User Not Registered");
+		return "userNotFound";
 	}
 	
 	@PostMapping("/signup")
@@ -82,8 +113,9 @@ public class UserController {
 		try{
 			Success success=userService.createCompany(companyModel);
 			if(success.getCode()!=0) {
+				log.error(success.getMessage());
 				model.addAttribute("error", true);
-				model.addAttribute("exception", success.getMessage());
+				model.addAttribute("exception", "Error While creating Company");
 				return "signUp";
 			}
 				
@@ -92,6 +124,7 @@ public class UserController {
 			model.addAttribute("exception", "Some thing went wrong please contact administrator");
 			return "signUp";
 		}
-		return "successSignUp";
+		
+		return "success";
 	}
 }

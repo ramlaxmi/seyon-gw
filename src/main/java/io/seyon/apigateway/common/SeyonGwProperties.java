@@ -4,19 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix="seyon.gw")
+@ConfigurationProperties(prefix = "seyon.gw")
 public class SeyonGwProperties {
 
-	List<String> authExcludeUrl= new ArrayList<>();
+	List<String> authExcludeUrl = new ArrayList<>();
 	String loginSuccessUrl;
 	Integer cookieMaxAgeInSeconds;
 	Map<String, String> restUrlMap;
 	String restUrlDomain;
-	
+
+	String proxyHost;
+	Integer proxyPort;
+	String proxyUser;
+	String proxyPassword;
+	Boolean useProxyFlag;
+	Boolean sslValidationFlag;
+
 	public String getLoginSuccessUrl() {
 		return loginSuccessUrl;
 	}
@@ -56,5 +64,55 @@ public class SeyonGwProperties {
 	public void setRestUrlDomain(String restUrlDomain) {
 		this.restUrlDomain = restUrlDomain;
 	}
-	
+
+	public String getProxyHost() {
+		return proxyHost;
+	}
+
+	public void setProxyHost(String proxyHost) {
+		this.proxyHost = proxyHost;
+	}
+
+	public Integer getProxyPort() {
+		return proxyPort;
+	}
+
+	public void setProxyPort(Integer proxyPort) {
+		this.proxyPort = proxyPort;
+	}
+
+	public String getProxyUser() {
+		return proxyUser;
+	}
+
+	public void setProxyUser(String proxyUser) {
+		this.proxyUser = proxyUser;
+	}
+
+	public String getProxyPassword() {
+		return proxyPassword;
+	}
+
+	public void setProxyPassword(String proxyPassword) {
+		this.proxyPassword = proxyPassword;
+	}
+
+	public Boolean isUseProxyFlag() {
+		return useProxyFlag;
+	}
+
+	public void setUseProxyFlag(Boolean useProxyFlag) {
+		this.useProxyFlag = useProxyFlag;
+	}
+
+	public Boolean isSslValidationFlag() {
+		return sslValidationFlag;
+	}
+
+	public void setSslValidationFlag(Boolean sslValidationFlag) {
+		this.sslValidationFlag = sslValidationFlag;
+	}
+
+
+
 }

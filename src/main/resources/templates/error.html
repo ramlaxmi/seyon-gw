@@ -16,6 +16,7 @@
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 
+
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
@@ -31,23 +32,21 @@
 </head>
 
 <body class="primary-color-dark ">
-	<script th:inline="javascript">
-		window.location.href = "/ui";
-	</script>
 	<div class="pt-0 mx-lg-1">
 		<div class="container mt-4">
 			<div class="card">
-				<header class="card-header bg-success">
+				<header class="card-header bg-danger text-white">
 					<a class="logo-wrapper waves-effect"> <img
-						src="/img/logo-blue.png" class="img-fluid" alt="">
+						src="/img/logo-blue.png" class="img-fluid" alt=""> 
 					</a>
+
 				</header>
 				<div class="card-body">
 					<div class="auth-content">
-						<p class="text-center">Success</p>
-						<p>
-							<a th:if="${redirect}" th:href="@{${redirectUrl}}">Redirect</a>
-						</p>
+					<h2
+						class="">Error ::</h2>
+						<p th:text="${errorCode}"></p>
+						<p th:text="${error}"></p>
 					</div>
 				</div>
 			</div>

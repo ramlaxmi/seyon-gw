@@ -7,6 +7,16 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Seyyon :: New Company SignUp</title>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
@@ -31,8 +41,9 @@
 				th:object="${companyModel}" method="POST">
 				<div class="card-header blue lighten-5">
 					<a class="logo-wrapper waves-effect"> <img
-						src="/img/seyon-web-240x70.png" class="img-fluid" alt="">
-					</a> <br /> Register your company to proceed further.  Already registered? Please <a href="/login" class="forgot-btn pull-right">Login</a>
+						src="/img/logo-blue.png" class="img-fluid" alt="">
+					</a> <br /> Register your company to proceed further. Already
+					registered? Please <a href="/login" class="forgot-btn pull-right">Login</a>
 				</div>
 				<div class="card-body">
 					<input type="hidden" th:field="*{ltToken}" />
@@ -88,27 +99,13 @@
 							<div class="md-form">
 								<label for="email">Primary Email *</label> <input type="email"
 									class="form-control underlined" name="email" id="email"
-									required="true" th:field="*{userInfo.email}" /> <small>This
+									required="true" th:field="*{userInfo.email}" readonly /> <small>This
 									will be your user name</small>
 							</div>
 							<div class="md-form">
 								<label for="semail">Secondary Email</label> <input type="email"
 									class="form-control underlined" name="semail" id="semail"
 									th:field="*{company.secondaryEmail}" />
-							</div>
-
-
-
-
-							<div class="md-form">
-								<label for="password">Password *</label> <input type="password"
-									class="form-control underlined" name="password" id="password"
-									required="true" th:field="*{userInfo.password}" />
-							</div>
-							<div class="md-form">
-								<label for="retype_password">ReEnter Password *</label> <input
-									type="password" class="form-control underlined"
-									name="retype_password" id="retype_password" required="true" />
 							</div>
 
 							<div class="md-form">
@@ -219,8 +216,9 @@
 					<div class="custom-control custom-checkbox">
 						<input type="checkbox" class="custom-control-input" name="agree"
 							id="agree" required="true"> <label
-							class="custom-control-label" for="agree">Agree
-								the terms and <a href="/unsecured/policy.html" target="_blank">policy</a></label>
+							class="custom-control-label" for="agree">Agree the terms
+							and <a href="/unsecured/policy.html" target="_blank">policy</a>
+						</label>
 					</div>
 
 					<button class="btn btn-success float-right" type="submit">Finish!</button>

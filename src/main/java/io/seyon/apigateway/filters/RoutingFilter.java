@@ -34,12 +34,11 @@ public class RoutingFilter extends ZuulFilter {
 		HttpServletRequest request = ctx.getRequest();
 		HttpServletResponse response=ctx.getResponse();
 		
-		String email = (String) request.getAttribute(Constants.USER_EMAIL);
+		User user = (User) request.getAttribute(Constants.USER);
 		String sessionId = (String) request.getAttribute(Constants.USER_SESSION);
 		if (StringUtils.isNotBlank(sessionId)) {
 			
-			User user = loginService.findUserByEmail(email);
-			List<UserRole> userRoles = loginService.findRolesByUserEmail(email);
+			List<UserRole> userRoles = loginService.findRolesByUserEmail(user.getEmail());
 			
 			String roleCodes = userRoles // -> List<A>
 					.stream() // -> Stream<A>
@@ -63,7 +62,7 @@ public class RoutingFilter extends ZuulFilter {
 			
 		}
 
-		log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+		log.debug(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 		return null;
 	}
 
