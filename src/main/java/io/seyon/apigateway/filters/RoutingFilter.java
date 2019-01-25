@@ -11,6 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -24,45 +28,58 @@ import io.seyon.apigateway.service.LoginService;
 public class RoutingFilter extends ZuulFilter {
 
 	private static Logger log = LoggerFactory.getLogger(RoutingFilter.class);
-	
+
 	@Autowired
 	LoginService loginService;
+
+	private static final String AUTHORIZATION_HEADER = "Authorization";
+	private static final String BEARER_TOKEN_TYPE = "Bearer";
 
 	@Override
 	public Object run() throws ZuulException {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
-		HttpServletResponse response=ctx.getResponse();
-		
+		HttpServletResponse response = ctx.getResponse();
+
 		User user = (User) request.getAttribute(Constants.USER);
 		String sessionId = (String) request.getAttribute(Constants.USER_SESSION);
 		if (StringUtils.isNotBlank(sessionId)) {
-			
+
 			List<UserRole> userRoles = loginService.findRolesByUserEmail(user.getEmail());
-			
+
 			String roleCodes = userRoles // -> List<A>
 					.stream() // -> Stream<A>
 					.map(UserRole::getRoleCode) // -> Stream<String>
 					.collect(Collectors.joining(","));
-			log.debug("Role codes from user role {}",roleCodes);
+			log.debug("Role codes from user role {}", roleCodes);
 			ctx.addZuulRequestHeader(Constants.USER_EMAIL_HEADER, user.getEmail());
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
 			ctx.addZuulRequestHeader(Constants.USER_ROLE_HEADER, roleCodes);
-			if(null!=user.getCompanyId())
+			if (null != user.getCompanyId())
 				ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
 			else {
 				log.error("Company is not configured for this user");
 				try {
-					response.sendError(422,"Company is not configured for this user");
+					response.sendError(422, "Company is not configured for this user");
 				} catch (IOException e) {
-					log.error("Error send response",e);
+					log.error("Error send response", e);
 				}
 			}
-			
+
+			SecurityContext securityContext = SecurityContextHolder.getContext();
+			Authentication authentication = securityContext.getAuthentication();
+
+			if (authentication != null && authentication.getDetails() instanceof OAuth2AuthenticationDetails) {
+				OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
+				ctx.addZuulRequestHeader(AUTHORIZATION_HEADER,
+						String.format("%s %s", BEARER_TOKEN_TYPE, details.getTokenValue()));
+			}
+
 		}
 
 		log.debug(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+		
 		return null;
 	}
 
