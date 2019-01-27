@@ -25,6 +25,8 @@ public class SeyonGwProperties {
 	Boolean useProxyFlag;
 	Boolean sslValidationFlag;
 
+	String appId;
+	
 	public String getLoginSuccessUrl() {
 		return loginSuccessUrl;
 	}
@@ -111,6 +113,14 @@ public class SeyonGwProperties {
 
 	public void setSslValidationFlag(Boolean sslValidationFlag) {
 		this.sslValidationFlag = sslValidationFlag;
+	}
+
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
 	}
 
 
