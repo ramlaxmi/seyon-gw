@@ -31,7 +31,7 @@
 <link href="css/login.css" rel="stylesheet">
 </head>
 
-<body class="primary-color-dark ">
+<body class="bg-07689F">
 	<!--Main layout-->
 	<main class="pt-0 mx-lg-1">
 	<div class="container-fluid mt-5">
@@ -85,7 +85,17 @@
 									class="form-control " name="pinCode" id="pinCode"
 									required="true" th:field="*{company.pinCode}" />
 							</div>
-
+							<div class=" md-form ">
+					            <label for="status">Company Status *</label>
+					            <select id="status" name="status" class="browser-default custom-select md-select" required="true" 
+					               th:field="*{company.status}">
+					              <option value="Company" selected>Company</option>
+					              <option value="Partnership">Partnership</option>
+					              <option value="Individual">Individual</option>
+					              <option value="Trust">Trust</option>
+					              <option value="LLP">LLP</option>
+					            </select>
+					          </div>
 						</div>
 						<div class="col-md-3 border-right">
 							<h4 class="sub-header">

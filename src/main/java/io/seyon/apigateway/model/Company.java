@@ -55,6 +55,8 @@ public class Company {
 	String accountType;
 
 	String swiftCode;
+	
+	String status;
 
 	public String getCompanyName() {
 		return companyName;
@@ -280,10 +282,19 @@ public class Company {
 				+ ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", pinCode=" + pinCode
 				+ ", tanNo=" + tanNo + ", gstNo=" + gstNo + ", panNo=" + panNo + ", ownerName=" + ownerName
 				+ ", phonePrimary=" + phonePrimary + ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo
-				+ ", serviceTaxRegNo=" + serviceTaxRegNo + ", accountingType=" + accountingType + ", signatureImg="
-				+ signatureImg + ", primaryEmail=" + primaryEmail + ", secondaryEmail=" + secondaryEmail + ", bankName="
-				+ bankName + ", branch=" + branch + ", branchIFSCCode=" + branchIFSCCode + ", accountNo=" + accountNo
-				+ ", accountName=" + accountName + ", accountType=" + accountType + ", swiftCode=" + swiftCode + "]";
+				+ ", serviceTaxRegNo=" + serviceTaxRegNo + ", accountingType=" + accountingType + ", logoImg=" + logoImg
+				+ ", signatureImg=" + signatureImg + ", primaryEmail=" + primaryEmail + ", secondaryEmail="
+				+ secondaryEmail + ", bankName=" + bankName + ", branch=" + branch + ", branchIFSCCode="
+				+ branchIFSCCode + ", accountNo=" + accountNo + ", accountName=" + accountName + ", accountType="
+				+ accountType + ", swiftCode=" + swiftCode + ", status=" + status + "]";
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
