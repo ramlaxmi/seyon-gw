@@ -89,11 +89,17 @@
 					            <label for="status">Company Status *</label>
 					            <select id="status" name="status" class="browser-default custom-select md-select" required="true" 
 					               th:field="*{company.status}">
+					              <option value="Artificial_Juridical_person">Artificial Juridical person</option>
+					              <option value="Association_of_persons">Association of persons</option>
+					              <option value="Body_of_Individuals">Body of Individuals</option>
 					              <option value="Company" selected>Company</option>
-					              <option value="Partnership">Partnership</option>
+					              <option value="Firm">Firm</option>
+					              <option value="Government">Government</option>
+					              <option value="Hindu_Undivided_family">Hindu Undivided family</option>
 					              <option value="Individual">Individual</option>
+					              <option value="Limited_Liability_partnership">Limited Liability partnership</option>
+					              <option value="Local_Authority">Local Authority</option>
 					              <option value="Trust">Trust</option>
-					              <option value="LLP">LLP</option>
 					            </select>
 					          </div>
 						</div>
