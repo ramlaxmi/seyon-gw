@@ -57,23 +57,6 @@ public class UserController {
 		return "chooseYourCompanyView";
 	}
 	
-	@GetMapping("/chooseYourCompany")
-	public String chooseYourCompany(Model model, HttpServletRequest request,Authentication authentication) {
-		OAuth2Authentication auth= (OAuth2Authentication) authentication;
-		UsernamePasswordAuthenticationToken userDetails=(UsernamePasswordAuthenticationToken) auth.getUserAuthentication();
-		Map<String, String> detailsMap = new LinkedHashMap<>();
-		
-		detailsMap = (Map<String, String>) userDetails.getDetails();
-		String userEmail = detailsMap.get("email");
-		
-		List<CompanyRole> companyRoles=userService.getCompaniesAndRoleForUser(userEmail);
-	    model.addAttribute("companyRoles", companyRoles);
-	    
-		return "chooseYourCompanyView";
-	}
-	
-
-	
 	
 	@GetMapping("/signup")
 	public String signUp(@ModelAttribute CompanyModel companyModel, Model model, HttpServletRequest request,Authentication authentication) {
@@ -128,6 +111,6 @@ public class UserController {
 			return "signUp";
 		}
 		
-		return "success";
+		return "chooseYourCompanyView";
 	}
 }

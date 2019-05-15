@@ -1,10 +1,12 @@
 package io.seyon.apigateway;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -102,8 +104,13 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter{
 		private SeyonGwProperties properties;
 
 		@Autowired
+		@Qualifier("authorizationInterceptor")
 		HandlerInterceptor authorizationInterceptor;
 
+		@Autowired
+		@Qualifier("selectedCompanyInterceptor")
+		HandlerInterceptor selectedCompanyInterceptor;
+		
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
 			List<String> excludeUrl=properties.getAuthExcludeUrl();
@@ -112,6 +119,13 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter{
 			registry
 				.addInterceptor(authorizationInterceptor)
 				.excludePathPatterns(excludeUrl);
+			
+			List<String> selectedCompanyUrl=new ArrayList<>();
+			selectedCompanyUrl.add("/ui/**");
+			selectedCompanyUrl.add("/api/**");
+			registry
+				.addInterceptor(selectedCompanyInterceptor)
+				.addPathPatterns(selectedCompanyUrl);
 		}
 
 	}
