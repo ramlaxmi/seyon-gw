@@ -56,7 +56,6 @@ public class SeyyonOaut2SuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
 		if (savedRequest == null) {
 			super.onAuthenticationSuccess(request, response, authentication);
-
 			return;
 		}
 		String targetUrlParameter = getTargetUrlParameter();
@@ -69,8 +68,7 @@ public class SeyyonOaut2SuccessHandler extends SimpleUrlAuthenticationSuccessHan
 		}
 
 		clearAuthenticationAttributes(request);
-
-		// 	Use the DefaultSavedRequest URL
+		//Use the DefaultSavedRequest URL
 		String targetUrl = savedRequest.getRedirectUrl();
 		logger.debug("Redirecting to DefaultSavedRequest Url: " + targetUrl);
 		getRedirectStrategy().sendRedirect(request, response, targetUrl);

@@ -13,4 +13,5 @@ public interface Constants {
 	final String COMPANY_ID="X-COMPANY-ID";
 	final String USER = "USER";
 
+	final String USER_PREFERENCE_COOKIE="user-preference";
 }
