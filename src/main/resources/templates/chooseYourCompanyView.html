@@ -8,13 +8,16 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Seyyon :: Choose Your Company</title>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 
 <!-- Font Awesome -->
 <link rel="stylesheet"
@@ -40,9 +43,21 @@
 					</a>
 				</header>
 				<div class="card-body">
-					<div class="auth-content">
-						<p class="text-center">Success</p>
-						
+					<div class="list-group">
+						<a th:each="companyRole: ${companyRoles}" th:href="@{/selectedCompany(id=${companyRole.companyId})}"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-2 h5" th:text="${companyRole.companyName}" >List group item heading</h5>
+								<small></small>
+							</div>
+							<p class="mb-2">
+							You are going to access as : 
+							<span th:each="role:${companyRole.roleCode}">
+								<m th:text="${role}"></m>,
+							</span>
+							</p>
+							<small></small>
+						</a> 
 					</div>
 				</div>
 			</div>
