@@ -36,7 +36,7 @@ public class SelectedCompanyInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 
-	     if(null==companyCookieValue) { 
+	     if(null==companyCookieValue || companyCookieValue.equals("")) { 
 	    	 response.sendRedirect("/"); 
 	    	 return false;
 	     }
