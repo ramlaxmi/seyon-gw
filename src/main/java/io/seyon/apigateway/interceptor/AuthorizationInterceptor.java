@@ -3,6 +3,7 @@ package io.seyon.apigateway.interceptor;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,9 +50,17 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 				userSessionId = details.getSessionId();
 				LoginService loginService= context.getBean(LoginService.class);
 				user = loginService.findUserByEmail(userEmail);
+				
+				Cookie[] cookies= request.getCookies();
+				String companyCookieValue=null;
+				for(Cookie c:cookies) {
+					if(c.getName().equalsIgnoreCase(Constants.USER_PREFERENCE_COOKIE)) {
+						companyCookieValue=c.getValue();
+					}
+				}
 				if(null==user) {
 					response.sendRedirect("/userNotFound");
-					return true;
+					return false;
 				}
 			}
 		} catch (Exception e) {

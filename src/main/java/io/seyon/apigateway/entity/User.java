@@ -11,6 +11,8 @@ public class User {
 	String redirectUri;
 	String ltToken;
 	
+	Boolean superUser;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -70,5 +72,13 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", name=" + name + ", active=" + active + ", companyId=" + companyId + "]";
+	}
+
+	public Boolean getSuperUser() {
+		return superUser;
+	}
+
+	public void setSuperUser(Boolean superUser) {
+		this.superUser = superUser;
 	}
 }

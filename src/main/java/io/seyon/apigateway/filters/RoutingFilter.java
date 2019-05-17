@@ -50,17 +50,10 @@ public class RoutingFilter extends ZuulFilter {
 		String sessionId = (String) request.getAttribute(Constants.USER_SESSION);
 		if (StringUtils.isNotBlank(sessionId)) {
 
-			List<UserRole> userRoles = loginService.findRolesByUserEmail(user.getEmail());
-
-			String roleCodes = userRoles // -> List<A>
-					.stream() // -> Stream<A>
-					.map(UserRole::getRoleCode) // -> Stream<String>
-					.collect(Collectors.joining(","));
-			log.debug("Role codes from user role {}", roleCodes);
 			ctx.addZuulRequestHeader(Constants.USER_EMAIL_HEADER, user.getEmail());
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
-			ctx.addZuulRequestHeader(Constants.USER_ROLE_HEADER, roleCodes);
+		
 			if (null != user.getCompanyId())
 				ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
 			else {
@@ -74,18 +67,6 @@ public class RoutingFilter extends ZuulFilter {
 			
 			String token=DigestUtils.sha256Hex(props.getAppId());
 			ctx.addZuulRequestHeader("app_token",token);
-
-			/*
-			 * SecurityContext securityContext = SecurityContextHolder.getContext();
-			 * Authentication authentication = securityContext.getAuthentication();
-			 * 
-			 * if (authentication != null && authentication.getDetails() instanceof
-			 * OAuth2AuthenticationDetails) { OAuth2AuthenticationDetails details =
-			 * (OAuth2AuthenticationDetails) authentication.getDetails();
-			 * 
-			 * }
-			 */
-
 		}
 
 		log.debug(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));

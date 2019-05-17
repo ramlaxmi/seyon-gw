@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Seyyon :: Choose Your Company</title>
+
+<link rel="apple-touch-icon" sizes="180x180"
+	href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="css/mdb.min.css" rel="stylesheet">
+<!-- Your custom styles (optional) -->
+<link href="css/style.css" rel="stylesheet">
+<link href="css/login.css" rel="stylesheet">
+</head>
+
+<body class="bg-07689F">
+	<div class="pt-0 mx-lg-1">
+		<div class="container mt-4">
+			<div class="card">
+				<header class="card-header bg-success">
+					<a class="logo-wrapper waves-effect"> 
+						<img src="/img/logo-blue.png" class="img-fluid" alt="">
+					</a>
+				</header>
+				<div class="card-body">
+					<p>Welcome <b th:text="${user.name}"></b></p>
+					<a class="btn btn-primary" href="/signup">Create Company</a>
+					<a class="btn btn-secondary" href="/admin" th:if="${user.superUser}">login As Super User</a>
+					<hr/>
+					<h2>Which company you want to access</h2> 
+					<div class="list-group">
+						<a th:each="companyRole: ${companyRoles}" th:href="@{/selectedCompany(id=${companyRole.companyId})}"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-2 h5" th:text="${companyRole.companyName}" >List group item heading</h5>
+								<small></small>
+							</div>
+							<p class="mb-2">
+							You are going to access as : 
+							<span th:each="role:${companyRole.roleCode}">
+								<m th:text="${role}"></m>,
+							</span>
+							</p>
+							<small></small>
+						</a> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- SCRIPTS -->
+	<!-- JQuery -->
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<!-- Initializations -->
+	<script type="text/javascript">
+		// Animations initialization
+		new WOW().init();
+	</script>
+</body>
+
+</html>
