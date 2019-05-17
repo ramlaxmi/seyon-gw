@@ -38,11 +38,16 @@
 		<div class="container mt-4">
 			<div class="card">
 				<header class="card-header bg-success">
-					<a class="logo-wrapper waves-effect"> <img
-						src="/img/logo-blue.png" class="img-fluid" alt="">
+					<a class="logo-wrapper waves-effect"> 
+						<img src="/img/logo-blue.png" class="img-fluid" alt="">
 					</a>
 				</header>
 				<div class="card-body">
+					<p>Welcome <b th:text="${user.name}"></b></p>
+					<a class="btn btn-primary" href="/signup">Create Company</a>
+					<a class="btn btn-secondary" href="/admin" th:if="${user.superUser}">login As Super User</a>
+					<hr/>
+					<h2>Which company you want to access</h2> 
 					<div class="list-group">
 						<a th:each="companyRole: ${companyRoles}" th:href="@{/selectedCompany(id=${companyRole.companyId})}"
 							class="list-group-item list-group-item-action flex-column align-items-start">

@@ -62,10 +62,6 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 					response.sendRedirect("/userNotFound");
 					return false;
 				}
-				/*
-				 * if(null==companyCookieValue) { response.sendRedirect("/"); return true; }
-				 */
-				 				
 			}
 		} catch (Exception e) {
 			log.error("Restricting principal " + principal + "failed, exception: {} ", e);

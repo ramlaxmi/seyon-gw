@@ -1,12 +1,13 @@
 package io.seyon.apigateway.controller;
 
-import java.security.Principal;
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.seyon.apigateway.common.Constants;
 import io.seyon.apigateway.common.SeyonGwProperties;
@@ -42,6 +43,10 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	LoginService loginService;
+	
+	
 	@GetMapping("/")
 	public String successLogin(Model model, HttpServletRequest request,Authentication authentication) {
 		OAuth2Authentication auth= (OAuth2Authentication) authentication;
@@ -50,10 +55,10 @@ public class UserController {
 		
 		detailsMap = (Map<String, String>) userDetails.getDetails();
 		String userEmail = detailsMap.get("email");
-		
+		User user = loginService.findUserByEmail(userEmail);
 		List<CompanyRole> companyRoles=userService.getCompaniesAndRoleForUser(userEmail);
 	    model.addAttribute("companyRoles", companyRoles);
-	    
+	    model.addAttribute("user", user);
 		return "chooseYourCompanyView";
 	}
 	
@@ -111,6 +116,22 @@ public class UserController {
 			return "signUp";
 		}
 		
+		String userEmail =companyModel.getUserInfo().getEmail();
+		User user = loginService.findUserByEmail(userEmail);
+		List<CompanyRole> companyRoles=userService.getCompaniesAndRoleForUser(userEmail);
+	    model.addAttribute("companyRoles", companyRoles); 
+	    model.addAttribute("user", user);
 		return "chooseYourCompanyView";
+
+	}
+	
+	@GetMapping("/selectedCompany")
+	public String selectedCompany(@RequestParam Long id, Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		Cookie cookie=new Cookie(Constants.USER_PREFERENCE_COOKIE, String.valueOf(id));
+		cookie.setHttpOnly(true);
+		response.addCookie(cookie);
+
+		return "success";
 	}
 }

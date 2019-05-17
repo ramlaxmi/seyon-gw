@@ -120,12 +120,6 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter{
 				.addInterceptor(authorizationInterceptor)
 				.excludePathPatterns(excludeUrl);
 			
-			List<String> selectedCompanyUrl=new ArrayList<>();
-			selectedCompanyUrl.add("/ui/**");
-			selectedCompanyUrl.add("/api/**");
-			registry
-				.addInterceptor(selectedCompanyInterceptor)
-				.addPathPatterns(selectedCompanyUrl);
 		}
 
 	}
