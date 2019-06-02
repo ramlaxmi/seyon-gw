@@ -54,6 +54,7 @@ public class RoutingFilter extends ZuulFilter {
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
 		
+			if(!request.getRequestURI().equals("/admin")) {
 			if (null != user.getCompanyId())
 				ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
 			else {
@@ -64,7 +65,7 @@ public class RoutingFilter extends ZuulFilter {
 					log.error("Error send response", e);
 				}
 			}
-			
+			}
 			String token=DigestUtils.sha256Hex(props.getAppId());
 			ctx.addZuulRequestHeader("app_token",token);
 		}
@@ -75,7 +76,7 @@ public class RoutingFilter extends ZuulFilter {
 	}
 
 	@Override
-	public boolean shouldFilter() {
+	public boolean shouldFilter() {	
 		return true;
 	}
 

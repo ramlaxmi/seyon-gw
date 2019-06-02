@@ -35,13 +35,14 @@ public class SelectedCompanyInterceptor extends HandlerInterceptorAdapter {
 					companyCookieValue=c.getValue();
 				}
 			}
-
-	     if(null==companyCookieValue || companyCookieValue.equals("")) { 
+		if(!request.getRequestURI().equals("/admin")) {
+			if(null==companyCookieValue || companyCookieValue.equals("")) { 
 	    	 response.sendRedirect("/"); 
 	    	 return false;
 	     }
-	     
+		
 	     user.setCompanyId(Long.parseLong(companyCookieValue));
+		}
 		} catch (Exception e) {
 			log.error("exception", e);
 			return false;
