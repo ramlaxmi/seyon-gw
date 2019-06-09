@@ -134,4 +134,14 @@ public class UserController {
 
 		return "success";
 	}
+	
+	@GetMapping("/selectAdmin")
+	public String selectedAdminCompany(Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		Cookie cookie=new Cookie(Constants.USER_PREFERENCE_COOKIE,"0");
+		cookie.setHttpOnly(true);
+		response.addCookie(cookie);
+
+		return "admin";
+	}
 }

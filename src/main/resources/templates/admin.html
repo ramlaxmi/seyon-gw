@@ -6,18 +6,15 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Seyyon :: Choose Your Company</title>
+<title>Seyyon :: Login Success</title>
 
-<link rel="apple-touch-icon" sizes="180x180"
-	href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32"
-	href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16"
-	href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 
 <!-- Font Awesome -->
 <link rel="stylesheet"
@@ -34,35 +31,23 @@
 </head>
 
 <body class="bg-07689F">
+	<script th:inline="javascript">
+		window.location.href = "/admin";
+	</script>
 	<div class="pt-0 mx-lg-1">
 		<div class="container mt-4">
 			<div class="card">
 				<header class="card-header bg-success">
-					<a class="logo-wrapper waves-effect"> 
-						<img src="/img/logo-blue.png" class="img-fluid" alt="">
+					<a class="logo-wrapper waves-effect"> <img
+						src="/img/logo-blue.png" class="img-fluid" alt="">
 					</a>
 				</header>
 				<div class="card-body">
-					<p>Welcome <b th:text="${user.name}"></b></p>
-					<a class="btn btn-primary" href="/signup">Create Company</a>
-					<a class="btn btn-secondary" href="/selectAdmin" th:if="${user.superUser}">login As Super User</a>
-					<hr/>
-					<h2>Which company you want to access</h2> 
-					<div class="list-group">
-						<a th:each="companyRole: ${companyRoles}" th:href="@{/selectedCompany(id=${companyRole.companyId})}"
-							class="list-group-item list-group-item-action flex-column align-items-start">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-2 h5" th:text="${companyRole.companyName}" >List group item heading</h5>
-								<small></small>
-							</div>
-							<p class="mb-2">
-							You are going to access as : 
-							<span th:each="role:${companyRole.roleCode}">
-								<m th:text="${role}"></m>,
-							</span>
-							</p>
-							<small></small>
-						</a> 
+					<div class="auth-content">
+						<p class="text-center">Success</p>
+						<p>
+							<a th:if="${redirect}" th:href="@{${redirectUrl}}">Redirect</a>
+						</p>
 					</div>
 				</div>
 			</div>
