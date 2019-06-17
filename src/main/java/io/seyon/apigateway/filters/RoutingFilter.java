@@ -55,16 +55,26 @@ public class RoutingFilter extends ZuulFilter {
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
 		
 			if(!request.getRequestURI().equals("/admin")) {
-			if (null != user.getCompanyId())
-				ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
-			else {
-				log.error("Company is not configured for this user");
-				try {
-					response.sendError(422, "Company is not configured for this user");
-				} catch (IOException e) {
-					log.error("Error send response", e);
+				if (null != user.getCompanyId())
+					ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
+				else {
+					log.error("Company is not configured for this user");
+					try {
+						response.sendError(422, "Company is not configured for this user");
+					} catch (IOException e) {
+						log.error("Error send response", e);
+					}
 				}
-			}
+			}else if(request.getRequestURI().equals("/admin")) {
+				//verify whether user is super user or not
+				if(!user.getSuperUser()) {
+					log.error("You are not super user");
+					try {
+						response.sendError(422, "Company is not configured for this user");
+					} catch (IOException e) {
+						log.error("Error send response", e);
+					}
+				}
 			}
 			String token=DigestUtils.sha256Hex(props.getAppId());
 			ctx.addZuulRequestHeader("app_token",token);
