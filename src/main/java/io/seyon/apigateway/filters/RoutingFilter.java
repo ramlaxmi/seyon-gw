@@ -65,9 +65,9 @@ public class RoutingFilter extends ZuulFilter {
 						log.error("Error send response", e);
 					}
 				}
-			}else if(request.getRequestURI().equals("/admin")) {
+			}else if(request.getRequestURI().equals("/admin") || request.getRequestURI().equals("/su")) {
 				//verify whether user is super user or not
-				if(!user.getSuperUser()) {
+				if(null==user.getSuperUser() || !user.getSuperUser()) {
 					log.error("You are not super user");
 					try {
 						response.sendError(422, "Company is not configured for this user");
