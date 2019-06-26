@@ -54,7 +54,7 @@ public class RoutingFilter extends ZuulFilter {
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
 		
-			if(!request.getRequestURI().equals("/admin")) {
+	if(!request.getRequestURI().equals("/admin")) {
 				if (null != user.getCompanyId())
 					ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
 				else {
