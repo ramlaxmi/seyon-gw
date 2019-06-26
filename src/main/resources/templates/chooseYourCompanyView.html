@@ -45,15 +45,17 @@
 				<div class="card-body">
 					<p>Welcome <b th:text="${user.name}"></b></p>
 					<a class="btn btn-primary" href="/signup">Create Company</a>
-					<a class="btn btn-secondary" href="/admin" th:if="${user.superUser}">login As Super User</a>
+					<a class="btn btn-secondary" th:href="@{/selectAdmin(vt=${VT})}" th:if="${user.superUser}">login As Super User</a>
 					<hr/>
 					<h2>Which company you want to access</h2> 
 					<div class="list-group">
-						<a th:each="companyRole: ${companyRoles}" th:href="@{/selectedCompany(id=${companyRole.companyId})}"
-							class="list-group-item list-group-item-action flex-column align-items-start">
+						<t th:each="companyRole: ${companyRoles}">
+						<a  th:if="${companyRole.active}" th:href="@{/selectedCompany(id=${companyRole.companyId},vt=${VT})}" 
+									class="list-group-item list-group-item-action flex-column align-items-start">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 class="mb-2 h5" th:text="${companyRole.companyName}" >List group item heading</h5>
-								<small></small>
+								<small class="comp-active" th:if=${companyRole.active}>Active</small>
+								 <small class="comp-inActive" th:if=${!companyRole.active}>InActive</small>
 							</div>
 							<p class="mb-2">
 							You are going to access as : 
@@ -61,13 +63,27 @@
 								<m th:text="${role}"></m>,
 							</span>
 							</p>
-							<small></small>
-						</a> 
+						</a>
+						<x th:if="${!companyRole.active}"
+									class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-2 h5" th:text="${companyRole.companyName}" >List group item heading</h5>
+								<small class="comp-active" th:if=${companyRole.active}>Active</small>
+								 <small class="comp-inActive" th:if=${!companyRole.active}>InActive</small>
+							</div>
+							<p class="mb-2">
+							You are going to access as : 
+							<span th:each="role:${companyRole.roleCode}">
+								<m th:text="${role}"></m>,
+							</span>
+							</p>
+						</x>
+						</t> 
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
 
 	<!-- SCRIPTS -->
 	<!-- JQuery -->

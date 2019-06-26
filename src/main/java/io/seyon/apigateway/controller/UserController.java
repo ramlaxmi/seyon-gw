@@ -59,6 +59,10 @@ public class UserController {
 		List<CompanyRole> companyRoles=userService.getCompaniesAndRoleForUser(userEmail);
 	    model.addAttribute("companyRoles", companyRoles);
 	    model.addAttribute("user", user);
+	    String token = TokenGenerator.generateToken("VT");
+		request.getSession().setAttribute("VT", token);
+		model.addAttribute("VT",token);
+	    log.info("Choose your company VT {}",token);
 		return "chooseYourCompanyView";
 	}
 	
@@ -107,6 +111,11 @@ public class UserController {
 				log.error(success.getMessage());
 				model.addAttribute("error", true);
 				model.addAttribute("exception", "Error While creating Company");
+				
+				if(success.getCode()==-2){
+					model.addAttribute("exception", "Company Already exist");
+				}
+				
 				return "signUp";
 			}
 				
@@ -121,17 +130,46 @@ public class UserController {
 		List<CompanyRole> companyRoles=userService.getCompaniesAndRoleForUser(userEmail);
 	    model.addAttribute("companyRoles", companyRoles); 
 	    model.addAttribute("user", user);
+	    
+	    String token = TokenGenerator.generateToken("VT");
+		request.getSession().setAttribute("VT", token);
+		model.addAttribute("VT",token);
+	    log.info("Choose your company VT {}",token);
 		return "chooseYourCompanyView";
 
 	}
 	
 	@GetMapping("/selectedCompany")
-	public String selectedCompany(@RequestParam Long id, Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public String selectedCompany(@RequestParam Long id, @RequestParam String vt, Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		String lttoken= (String) request.getSession().getAttribute("VT");
+		if(!lttoken.equals(vt)) {
+			model.addAttribute("error", true);
+			model.addAttribute("exception", "Invalid Access");
+			return "chooseYourCompanyView";
+		}
 		
 		Cookie cookie=new Cookie(Constants.USER_PREFERENCE_COOKIE, String.valueOf(id));
 		cookie.setHttpOnly(true);
 		response.addCookie(cookie);
 
 		return "success";
+	}
+	
+	@GetMapping("/selectAdmin")
+	public String selectedAdminCompany(@RequestParam String vt,Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		String lttoken= (String) request.getSession().getAttribute("VT");
+		if(!lttoken.equals(vt)) {
+			model.addAttribute("error", true);
+			model.addAttribute("exception", "Invalid Access");
+			return "chooseYourCompanyView";
+		}
+
+		Cookie cookie=new Cookie(Constants.USER_PREFERENCE_COOKIE,"0");
+		cookie.setHttpOnly(true);
+		response.addCookie(cookie);
+
+		return "admin";
 	}
 }

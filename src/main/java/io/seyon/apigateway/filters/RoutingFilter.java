@@ -54,11 +54,21 @@ public class RoutingFilter extends ZuulFilter {
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
 		
-			if(!request.getRequestURI().startsWith("/admin") && !request.getRequestURI().startsWith("/static")) {
+	if(!request.getRequestURI().equals("/admin")) {
 				if (null != user.getCompanyId())
 					ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
 				else {
 					log.error("Company is not configured for this user");
+					try {
+						response.sendError(422, "Company is not configured for this user");
+					} catch (IOException e) {
+						log.error("Error send response", e);
+					}
+				}
+			}else if(request.getRequestURI().equals("/admin") || request.getRequestURI().equals("/su")) {
+				//verify whether user is super user or not
+				if(null==user.getSuperUser() || !user.getSuperUser()) {
+					log.error("You are not super user");
 					try {
 						response.sendError(422, "Company is not configured for this user");
 					} catch (IOException e) {

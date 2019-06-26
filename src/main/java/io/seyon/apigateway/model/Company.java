@@ -1,5 +1,6 @@
 package io.seyon.apigateway.model;
 
+
 public class Company {
 
 	String companyId;
@@ -57,6 +58,8 @@ public class Company {
 	String swiftCode;
 	
 	String status;
+	
+	Boolean active;
 
 	public String getCompanyName() {
 		return companyName;
@@ -295,6 +298,14 @@ public class Company {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 }
