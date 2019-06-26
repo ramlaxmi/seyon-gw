@@ -2,6 +2,7 @@
    "states":[  
       {  
          "state":"Andhra Pradesh",
+         "code":"37",
          "districts":[  
             "Anantapur",
             "Chittoor",
@@ -20,6 +21,7 @@
       },
       {  
          "state":"Arunachal Pradesh",
+         "code":"12",
          "districts":[  
             "Tawang",
             "West Kameng",
@@ -46,6 +48,7 @@
       },
       {  
          "state":"Assam",
+         "code":"18",
          "districts":[  
             "Baksa",
             "Barpeta",
@@ -84,6 +87,7 @@
       },
       {  
          "state":"Bihar",
+         "code":"10",
          "districts":[  
             "Araria",
             "Arwal",
@@ -127,12 +131,14 @@
       },
       {  
          "state":"Chandigarh (UT)",
+         "code":"04",
          "districts":[  
             "Chandigarh"
          ]
       },
       {  
          "state":"Chhattisgarh",
+         "code":"22",
          "districts":[  
             "Balod",
             "Baloda Bazar",
@@ -165,12 +171,14 @@
       },
       {  
          "state":"Dadra and Nagar Haveli (UT)",
+         "code":"26",
          "districts":[  
             "Dadra & Nagar Haveli"
          ]
       },
       {  
          "state":"Daman and Diu (UT)",
+         "code":"25",
          "districts":[  
             "Daman",
             "Diu"
@@ -178,6 +186,7 @@
       },
       {  
          "state":"Delhi (NCT)",
+         "code":"07",
          "districts":[  
             "Central Delhi",
             "East Delhi",
@@ -194,6 +203,7 @@
       },
       {  
          "state":"Goa",
+         "code":"30",
          "districts":[  
             "North Goa",
             "South Goa"
@@ -201,6 +211,7 @@
       },
       {  
          "state":"Gujarat",
+         "code":"24",
          "districts":[  
             "Ahmedabad",
             "Amreli",
@@ -239,6 +250,7 @@
       },
       {  
          "state":"Haryana",
+         "code":"06",
          "districts":[  
             "Ambala",
             "Bhiwani",
@@ -266,6 +278,7 @@
       },
       {  
          "state":"Himachal Pradesh",
+         "code":"02",
          "districts":[  
             "Bilaspur",
             "Chamba",
@@ -283,6 +296,7 @@
       },
       {  
          "state":"Jammu and Kashmir",
+         "code":"01",
          "districts":[  
             "Anantnag",
             "Bandipore",
@@ -310,6 +324,7 @@
       },
       {  
          "state":"Jharkhand",
+         "code":"20",
          "districts":[  
             "Bokaro",
             "Chatra",
@@ -339,6 +354,7 @@
       },
       {  
          "state":"Karnataka",
+         "code":"29",
          "districts":[  
             "Bagalkot",
             "Ballari (Bellary)",
@@ -374,6 +390,7 @@
       },
       {  
          "state":"Kerala",
+         "code":"32",
          "districts":[  
             "Alappuzha",
             "Ernakulam",
@@ -393,6 +410,7 @@
       },
       {  
          "state":"Lakshadweep (UT)",
+         "code":"31",
          "districts":[  
             "Agatti",
             "Amini",
@@ -408,6 +426,7 @@
       },
       {  
          "state":"Madhya Pradesh",
+         "code":"23",
          "districts":[  
             "Agar Malwa",
             "Alirajpur",
@@ -464,6 +483,7 @@
       },
       {  
          "state":"Maharashtra",
+         "code":"27",
          "districts":[  
             "Ahmednagar",
             "Akola",
@@ -505,6 +525,7 @@
       },
       {  
          "state":"Manipur",
+         "code":"14",
          "districts":[  
             "Bishnupur",
             "Chandel",
@@ -526,6 +547,7 @@
       },
       {  
          "state":"Meghalaya",
+         "code":"17",
          "districts":[  
             "East Garo Hills",
             "East Jaintia Hills",
@@ -542,6 +564,7 @@
       },
       {  
          "state":"Mizoram",
+         "code":"15",
          "districts":[  
             "Aizawl",
             "Champhai",
@@ -555,6 +578,7 @@
       },
       {  
          "state":"Nagaland",
+         "code":"13",
          "districts":[  
             "Dimapur",
             "Kiphire",
@@ -571,6 +595,7 @@
       },
       {  
          "state":"Odisha",
+         "code":"21",
          "districts":[  
             "Angul",
             "Balangir",
@@ -606,6 +631,7 @@
       },
       {  
          "state":"Puducherry (UT)",
+         "code":"34",
          "districts":[  
             "Karaikal",
             "Mahe",
@@ -615,6 +641,7 @@
       },
       {  
          "state":"Punjab",
+         "code":"03",
          "districts":[  
             "Amritsar",
             "Barnala",
@@ -642,6 +669,7 @@
       },
       {  
          "state":"Rajasthan",
+         "code":"08",
          "districts":[  
             "Ajmer",
             "Alwar",
@@ -680,6 +708,7 @@
       },
       {  
          "state":"Sikkim",
+         "code":"11",
          "districts":[  
             "East Sikkim",
             "North Sikkim",
@@ -689,6 +718,7 @@
       },
       {  
          "state":"Tamil Nadu",
+         "code":"33",
          "districts":[  
             "Ariyalur",
             "Chennai",
@@ -726,6 +756,7 @@
       },
       {  
          "state":"Telangana",
+         "code":"36",
          "districts":[  
             "Adilabad",
             "Bhadradri Kothagudem",
@@ -762,6 +793,7 @@
       },
       {  
          "state":"Tripura",
+         "code":"16",
          "districts":[  
             "Dhalai",
             "Gomati",
@@ -775,6 +807,7 @@
       },
       {  
          "state":"Uttarakhand",
+         "code":"05",
          "districts":[  
             "Almora",
             "Bageshwar",
@@ -793,6 +826,7 @@
       },
       {  
          "state":"Uttar Pradesh",
+         "code":"09",
          "districts":[  
             "Agra",
             "Aligarh",
@@ -873,6 +907,7 @@
       },
       {  
          "state":"West Bengal",
+         "code":"19",
          "districts":[  
             "Alipurduar",
             "Bankura",
