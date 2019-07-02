@@ -1,0 +1,298 @@
+.sidebar-fixed {
+	height: 100vh;
+	width: 270px;
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0
+		rgba(0, 0, 0, 0.12);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0
+		rgba(0, 0, 0, 0.12);
+	z-index: 1050;
+	background-color: #fff;
+	padding: .5rem;
+	padding-top: 0;
+}
+.user-profile{
+	background:white;
+	border:white 1px solid;
+}
+.sidebar-fixed .list-group .active {
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0
+		rgba(0, 0, 0, 0.12);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0
+		rgba(0, 0, 0, 0.12);
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.sidebar-fixed .logo-wrapper {
+	padding: .5rem 2.5rem 0 2.5rem;
+}
+
+.sidebar-fixed .logo-container {
+	border-bottom:white 1px solid;
+	margin-bottom: 2px;
+}
+
+.logo-wrapper img {
+	max-height: 50px;
+}
+
+.sidebar-fixed .logo-wrapper img {
+	max-height: 50px;
+}
+
+.show-sidebar {
+	position: fixed;
+	top: 0;
+	width: 60px;
+	height: 45px;
+	background-color: #041530;
+	z-index: 1234;
+	font-size: 30px;
+	display: none;
+}
+
+.show-sidebar a {
+	color: white !important;
+	margin: .5em;
+}
+
+@media ( min-width : 1200px) {
+	.navbar, .page-footer, main {
+		padding-left: 270px;
+	}
+	.sidebar-fixed {
+		display: block !important;
+	}
+}
+
+@media ( max-width : 1199.98px) {
+	.sidebar-fixed {
+		display: none;
+		font-size: 80%;
+	}
+	.show-sidebar {
+		position: fixed;
+		top: 0;
+		width: 50px;
+		height: 40px;
+		background-color: #041530;
+		z-index: 1234;
+		font-size: 25px;
+		display: block;
+		opacity: 0.7;
+	}
+}
+
+.sidebar-menu {
+	margin-right: -.5rem;
+	background: white;
+	max-height: 68%;
+	overflow-y: scroll
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+	border: 1px solid #0d47a1;
+	padding: 1px 0;
+	background-color: #0d47a1;
+}
+
+.sidebar-menu::-webkit-scrollbar {
+	width: 8px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+	background-color: #46bfbd;
+	border: 1px solid #0d47a1;
+}
+
+.companyMenu {
+	background-color: #a9becc;
+	width: 100%;
+	color:black
+}
+
+.company-name {
+	font-size: 18px;
+	font-weight: 400;
+	padding-left: 8px;
+	padding-top:8px;
+	float:left;
+}
+
+.company-icon {
+	float: right;
+	border-left: 1px solid #8fa1ad;
+	height: 100%;
+	padding: 10px;
+	font-size: 18px;
+	color:black
+}
+
+.profile-userpic {
+	text-align: center;
+}
+
+.profile-userpic img {
+	float: none;
+	margin: auto;
+	width: 30%;
+	height: 30%;
+	-webkit-border-radius: 50% !important;
+	-moz-border-radius: 50% !important;
+	border-radius: 50% !important;
+}
+
+.profile-usertitle {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.profile-usertitle-name {
+	color: black;
+	font-size: inherit;
+	font-weight: 600;
+	margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+	text-transform: uppercase;
+	color: grey;
+	font-size: inherit;
+	font-weight: 600;
+	margin-bottom: 15px;
+}
+
+.edit-profile {
+	text-align: right;
+	z-index: 20;
+	top: 0;
+	font-size: 20px;
+	margin: 5px;
+	color: black
+}
+
+/* reset our lists to remove bullet points and padding */
+.mainmenu, .submenu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* make ALL links (main and submenu) have padding and background color */
+.mainmenu a {
+	display: block;
+	background-color: inherit;
+	text-decoration: none;
+	padding: 10px;
+	color: #000;
+}
+
+.submenu .menu-item {
+	margin-left: 5px;
+}
+
+.menu-item {
+	position: relative;
+	display: block;
+	/* padding: .75rem 1.25rem; */
+	margin-bottom: -1px;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, .125);
+}
+
+/* add hover behaviour */
+.mainmenu a:hover {
+	background-color: #f2f2f2;
+}
+
+/* when hovering over a .mainmenu item,
+  display the submenu inside it.
+  we're changing the submenu's max-height from 0 to 200px;
+*/
+.mainmenu li:hover .submenu {
+	display: block;
+	max-height: 200px;
+}
+
+/*
+  we now overwrite the background-color for .submenu links only.
+  CSS reads down the page, so code at the bottom will overwrite the code at the top.
+*/
+.submenu a {
+	background-color: #e6e6e6;
+}
+
+/* hover behaviour for links inside .submenu */
+.submenu a:hover {
+	background-color: #f2f2f2;
+}
+
+/* this is the initial state of all submenus.
+  we set it to max-height: 0, and hide the overflowed content.
+*/
+.submenu {
+	overflow: hidden;
+	max-height: 0;
+	-webkit-transition: all 0.5s ease-out;
+}
+
+.sub-header {
+	padding-bottom: 4px;
+	color: #3F729B;
+}
+
+.sub-header .index {
+	padding: 5px 12px 5px 12px;
+	background: #FF8800;
+	color: white;
+	margin-right: 15px;
+	border-radius: 50%;
+	font-size: 90%;
+}
+
+.md-select{
+	border:0;
+	border-bottom:solid 1px rgb(206, 212, 218);
+}
+.md-select:active,.md-select:focus {
+	outline: 0 !important;
+	border:0 !important;
+    border-bottom-color: solid 1px rgb(206, 212, 218) !important;
+  }
+
+input[type=text],input[type=email],input[type=tel],input[type=number],input[type=password],input[type=date],
+input[type=datetime-local],input[type=file],input[type=range],input[type=search],input[type=time],input[type=url],input[type=week]{
+	color:#000;
+	font-weight: 500;
+}
+
+select {
+	color:#000;
+	font-weight: 500;
+}
+
+.primary-color,.bg-primary,.btn-primary {
+	background-color: #07689F !important;
+}
+
+
+.searchBox{
+	position: absolute;
+	z-index: 543;
+}
+
+.btn-circle{
+	width: 35px;
+	padding: 6px 0px;
+	border-radius: 30%;
+	text-align: center;
+	font-size: 14px;
+	line-height: 1.5;
+	margin:0
+}
+
+.field-labels{
+	font-weight: 500;
+}
