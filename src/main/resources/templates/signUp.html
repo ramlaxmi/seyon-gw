@@ -74,14 +74,20 @@
 									th:field="*{company.addressLine2}">
 							</div>
 							<div class="md-form">
-								<label for="city">City *</label> <input type="text"
-									class="form-control " name="city" id="city" required="true"
-									th:field="*{company.city}" />
+								<label for="state" class="active">State *</label>
+								 <select th:field="*{company.state}" class="form-control " name="state" id="state" required="true">
+								     <option disabled="disabled" selected="selected" value=""> -- Select State --</option>
+								</select>
 							</div>
 							<div class="md-form">
-								<label for="state">State *</label> <input type="text"
-									class="form-control " name="state" id="state" required="true"
-									th:field="*{company.state}" />
+								<label for="stateCode" class="active">State Code</label>
+								<input	type="text" class="form-control " name="stateCode" id="stateCode" required="true"	 th:field="*{company.stateCode}" readonly>
+							</div>
+							<div class="md-form">
+								<label for="city" class="active">City *</label>
+								<select class="form-control " name="city" id="city" required="true" th:field="*{company.city}" >
+								     <option disabled="disabled" selected="selected" value=""> -- Select City --</option>
+								</select>
 							</div>
 							<div class="md-form">
 								<label for="pinCode">Pincode *</label> <input type="text"
@@ -255,6 +261,51 @@
 	<script type="text/javascript">
 		// Animations initialization
 		new WOW().init();
+		
+	</script>
+	<script>
+	
+	$( document ).ready(function() {
+		$.get( "/city_state.json", function( resp ) {
+		    var states= resp.states; // server response
+		    localStorage.setItem("states",JSON.stringify(states));
+		    var html = '<option value=""> -- Select State --</option>';
+		    let len=states.length
+		    for ( var i = 0; i < len; i++) {
+		    	html += '<option value="' + states[i].state + '">'
+                + states[i].state  + '</option>';
+		    }
+            html += '</option>';
+            $('#state').html(html);
+		});
+		
+		$('#state').change(function() {
+			var states=JSON.parse(localStorage.getItem("states"));
+			var selectedState=$('#state').val();
+			console.log(selectedState);
+			console.log(states);
+			let len=states.length
+			var cities;
+			var stCde;
+		    for ( var i = 0; i < len; i++) {
+		    	if(states[i].state===selectedState){
+		    		cities=states[i].districts
+		    		stCde=states[i].code
+		    	}
+		    }
+		    $('#stateCode').val(stCde);
+		    console.log(cities);
+		    var html = '<option value=""> -- Select City --</option>';
+		    let cityLen=cities.length
+		    for ( var i = 0; i < cityLen; i++) {
+		    	html += '<option value="' + cities[i] + '">'
+                + cities[i]  + '</option>';
+		    }
+            html += '</option>';
+            $('#city').html(html);
+		});
+		
+	});
 	</script>
 </body>
 

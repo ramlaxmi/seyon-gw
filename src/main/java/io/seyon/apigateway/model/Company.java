@@ -14,7 +14,9 @@ public class Company {
 	String city;
 
 	String state;
-
+	
+	String stateCode;
+	
 	String pinCode;
 
 	String tanNo;
@@ -282,14 +284,14 @@ public class Company {
 	@Override
 	public String toString() {
 		return "Company [companyId=" + companyId + ", companyName=" + companyName + ", addressLine1=" + addressLine1
-				+ ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", pinCode=" + pinCode
-				+ ", tanNo=" + tanNo + ", gstNo=" + gstNo + ", panNo=" + panNo + ", ownerName=" + ownerName
-				+ ", phonePrimary=" + phonePrimary + ", phoneSecondary=" + phoneSecondary + ", faxNo=" + faxNo
-				+ ", serviceTaxRegNo=" + serviceTaxRegNo + ", accountingType=" + accountingType + ", logoImg=" + logoImg
-				+ ", signatureImg=" + signatureImg + ", primaryEmail=" + primaryEmail + ", secondaryEmail="
+				+ ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", stateCode=" + stateCode
+				+ ", pinCode=" + pinCode + ", tanNo=" + tanNo + ", gstNo=" + gstNo + ", panNo=" + panNo + ", ownerName="
+				+ ownerName + ", phonePrimary=" + phonePrimary + ", phoneSecondary=" + phoneSecondary + ", faxNo="
+				+ faxNo + ", serviceTaxRegNo=" + serviceTaxRegNo + ", accountingType=" + accountingType + ", logoImg="
+				+ logoImg + ", signatureImg=" + signatureImg + ", primaryEmail=" + primaryEmail + ", secondaryEmail="
 				+ secondaryEmail + ", bankName=" + bankName + ", branch=" + branch + ", branchIFSCCode="
 				+ branchIFSCCode + ", accountNo=" + accountNo + ", accountName=" + accountName + ", accountType="
-				+ accountType + ", swiftCode=" + swiftCode + ", status=" + status + "]";
+				+ accountType + ", swiftCode=" + swiftCode + ", status=" + status + ", active=" + active + "]";
 	}
 
 	public String getStatus() {
@@ -306,6 +308,14 @@ public class Company {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public String getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
 	}
 
 }
