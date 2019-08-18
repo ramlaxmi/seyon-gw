@@ -53,8 +53,10 @@ public class RoutingFilter extends ZuulFilter {
 			ctx.addZuulRequestHeader(Constants.USER_EMAIL_HEADER, user.getEmail());
 			ctx.addZuulRequestHeader(Constants.USER_SESSION_ID_HEADER, sessionId);
 			ctx.addZuulRequestHeader(Constants.USER_NAME_HEADER, user.getName());
+			
+			String uri=request.getRequestURI();
 		
-	if(!request.getRequestURI().equals("/admin")) {
+			if(!(uri.startsWith("/admin") || uri.startsWith("/static"))) {
 				if (null != user.getCompanyId())
 					ctx.addZuulRequestHeader(Constants.COMPANY_ID, user.getCompanyId().toString());
 				else {
@@ -65,7 +67,7 @@ public class RoutingFilter extends ZuulFilter {
 						log.error("Error send response", e);
 					}
 				}
-			}else if(request.getRequestURI().equals("/admin") || request.getRequestURI().equals("/su")) {
+			}else if(uri.startsWith("/admin") || uri.startsWith("/su") || uri.startsWith("/static")) {
 				//verify whether user is super user or not
 				if(null==user.getSuperUser() || !user.getSuperUser()) {
 					log.error("You are not super user");
