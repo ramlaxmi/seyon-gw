@@ -1,16 +1,16 @@
 package io.seyon.apigateway;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
@@ -45,7 +45,10 @@ public class ApigatewayApplication extends WebSecurityConfigurerAdapter{
 	private static Logger log = LoggerFactory.getLogger(ApigatewayApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApigatewayApplication.class, args);
+		//SpringApplication.run(ApigatewayApplication.class, args);
+		SpringApplicationBuilder app=new SpringApplicationBuilder(ApigatewayApplication.class);
+		app.build().addListeners(new ApplicationPidFileWriter("gw.pid"));
+		app.run(args);
 	}
 	
 	@Autowired
